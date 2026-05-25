@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MITZII STORE</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
 
@@ -13,104 +13,180 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
 scroll-behavior:smooth;
 }
 
 body{
-background:#050505;
+background:#020617;
 color:white;
 overflow-x:hidden;
-}
-
-/* BACKGROUND */
-
-.bg{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:-1;
-background:
-radial-gradient(circle at top,#131313,#050505 55%);
-overflow:hidden;
-}
-
-.bg span{
-position:absolute;
-display:block;
-width:3px;
-height:3px;
-background:white;
-border-radius:50%;
-opacity:.2;
-animation:move 15s linear infinite;
-}
-
-@keyframes move{
-0%{
-transform:translateY(100vh) scale(0);
-}
-100%{
-transform:translateY(-10vh) scale(1);
-}
+background-image:
+radial-gradient(circle at top,#1e3a8a33,#020617 40%);
 }
 
 /* LOADER */
 
 #loader{
 position:fixed;
-width:100%;
-height:100%;
-background:#000;
+inset:0;
+background:#020617;
 z-index:999999;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 flex-direction:column;
+overflow:hidden;
 transition:1s;
 }
 
-.loader-logo{
-font-size:45px;
-font-weight:700;
-letter-spacing:3px;
-animation:pulse 2s infinite;
+#loader::before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#2563eb55,#00000000);
+animation:pulse 4s infinite linear;
 }
 
+.loader-logo{
+display:flex;
+gap:10px;
+margin-bottom:25px;
+z-index:2;
+}
+
+.loader-logo span{
+font-size:60px;
+font-weight:800;
+opacity:0;
+transform:translateY(50px);
+animation:drop .5s forwards;
+}
+
+.loader-logo span:nth-child(1){animation-delay:.1s;}
+.loader-logo span:nth-child(2){animation-delay:.2s;}
+.loader-logo span:nth-child(3){animation-delay:.3s;}
+.loader-logo span:nth-child(4){animation-delay:.4s;}
+.loader-logo span:nth-child(5){animation-delay:.5s;}
+.loader-logo span:nth-child(6){animation-delay:.6s;}
+
 .loader-text{
-margin-top:15px;
-font-size:14px;
-color:#777;
-letter-spacing:2px;
+letter-spacing:7px;
+font-size:17px;
+margin-bottom:25px;
+color:#cbd5e1;
+opacity:0;
+animation:fade .8s forwards 1s;
+z-index:2;
+}
+
+.loader-line{
+width:250px;
+height:4px;
+background:#111827;
+border-radius:50px;
+overflow:hidden;
+z-index:2;
+}
+
+.loader-fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#2563eb,#60a5fa,#ffffff);
+animation:fill 3s forwards;
+}
+
+.loader-sub{
+margin-top:20px;
+font-size:12px;
+color:#64748b;
+letter-spacing:3px;
+opacity:0;
+animation:fade .8s forwards 1.5s;
+z-index:2;
+}
+
+@keyframes fill{
+100%{
+width:100%;
+}
+}
+
+@keyframes drop{
+100%{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes fade{
+100%{
+opacity:1;
+}
 }
 
 @keyframes pulse{
-0%{opacity:.3;}
-50%{opacity:1;}
-100%{opacity:.3;}
+50%{
+transform:scale(1.2);
+}
+}
+
+/* BACKGROUND */
+
+.bg-animation{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+overflow:hidden;
+}
+
+.circle{
+position:absolute;
+border-radius:50%;
+background:#2563eb22;
+animation:float 20s infinite linear;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh) rotate(0deg);
+opacity:0;
+}
+50%{
+opacity:1;
+}
+100%{
+transform:translateY(-120vh) rotate(360deg);
+opacity:0;
+}
 }
 
 /* NAVBAR */
 
 nav{
-position:sticky;
-top:0;
-z-index:999;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 7%;
-background:rgba(0,0,0,.6);
+padding:25px 50px;
+position:sticky;
+top:0;
+background:rgba(2,6,23,.7);
 backdrop-filter:blur(15px);
-border-bottom:1px solid #141414;
+z-index:999;
+border-bottom:1px solid #1e293b;
 }
 
 .logo{
 font-size:28px;
-font-weight:700;
-letter-spacing:2px;
+font-weight:800;
+background:linear-gradient(to right,#fff,#60a5fa);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .nav-links{
@@ -120,7 +196,7 @@ gap:30px;
 
 .nav-links a{
 text-decoration:none;
-color:#aaa;
+color:#94a3b8;
 font-size:14px;
 transition:.3s;
 }
@@ -134,292 +210,274 @@ color:white;
 .hero{
 padding:120px 20px 80px;
 text-align:center;
+max-width:1000px;
+margin:auto;
 }
 
 .hero h1{
-font-size:65px;
+font-size:80px;
 margin-bottom:20px;
-background:linear-gradient(to right,#fff,#888);
+background:linear-gradient(to right,#fff,#60a5fa,#fff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 .hero p{
-max-width:750px;
-margin:auto;
-color:#888;
-line-height:1.7;
+color:#94a3b8;
 font-size:18px;
+line-height:1.7;
+margin-bottom:35px;
 }
 
 .hero-btn{
 display:inline-block;
-margin-top:35px;
-padding:14px 40px;
+padding:16px 40px;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
 border-radius:50px;
-background:white;
-color:black;
+color:white;
 text-decoration:none;
-font-weight:700;
-transition:.3s;
+font-weight:600;
+transition:.4s;
+box-shadow:0 10px 30px rgba(37,99,235,.3);
 }
 
 .hero-btn:hover{
-transform:translateY(-4px);
+transform:translateY(-5px);
 }
 
-/* NOTIFICATION */
+/* LOGIN */
 
-.notification{
-position:fixed;
-top:30px;
-right:-400px;
-background:#111;
-padding:18px 25px;
-border:1px solid #222;
-border-radius:12px;
-z-index:99999;
-transition:.5s;
-box-shadow:0 0 20px rgba(255,255,255,.05);
-}
-
-.notification.show{
-right:30px;
-}
-
-.notification h4{
-margin-bottom:4px;
-}
-
-/* AUTH */
-
-.auth-box{
-width:95%;
-max-width:480px;
-margin:40px auto;
+.auth-card{
+max-width:450px;
+margin:50px auto;
+background:rgba(15,23,42,.7);
+border:1px solid #1e293b;
 padding:40px;
 border-radius:25px;
-background:#0b0b0b;
-border:1px solid #171717;
+backdrop-filter:blur(20px);
 }
 
-.auth-tabs{
-display:flex;
-gap:10px;
+.auth-card h2{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.auth-card p{
+color:#94a3b8;
 margin-bottom:25px;
 }
 
-.auth-tabs button{
-flex:1;
-padding:13px;
-background:#111;
-border:none;
-color:white;
-border-radius:12px;
-cursor:pointer;
-font-weight:600;
-}
-
-.auth-tabs button.active{
-background:white;
-color:black;
-}
-
-.auth-form{
-display:none;
-}
-
-.auth-form.active{
-display:block;
-}
-
-.input{
+.input-field{
 width:100%;
 padding:15px;
-background:#111;
-border:1px solid #1d1d1d;
-border-radius:12px;
 margin-bottom:15px;
-color:white;
+border:none;
 outline:none;
+background:#0f172a;
+border:1px solid #1e293b;
+border-radius:12px;
+color:white;
 }
 
-.auth-btn{
+.input-field:focus{
+border-color:#3b82f6;
+box-shadow:0 0 15px rgba(59,130,246,.4);
+}
+
+.submit-btn{
 width:100%;
 padding:15px;
-background:white;
-color:black;
-font-weight:700;
 border:none;
 border-radius:12px;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+color:white;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+transition:.4s;
+}
+
+.submit-btn:hover{
+transform:translateY(-3px);
+}
+
+.social-row{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+.social-btn{
+flex:1;
+padding:12px;
+background:#111827;
+border:1px solid #1e293b;
+border-radius:12px;
+color:white;
 cursor:pointer;
 transition:.3s;
 }
 
-.auth-btn:hover{
-transform:scale(1.02);
+.social-btn:hover{
+background:#1e293b;
 }
 
-/* SECTIONS */
+/* PRODUCTS */
 
-.section{
-padding:80px 7%;
+.container{
+max-width:1300px;
+margin:auto;
+padding:20px;
 }
 
 .section-title{
 font-size:34px;
-margin-bottom:40px;
+margin:70px 0 25px;
 }
 
-.grid{
+.product-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:25px;
 }
 
-/* CARDS */
-
-.card{
-background:#0d0d0d;
-border:1px solid #181818;
+.product-card{
+background:rgba(15,23,42,.7);
+border:1px solid #1e293b;
 padding:25px;
-border-radius:20px;
+border-radius:25px;
 transition:.4s;
-position:relative;
-overflow:hidden;
+backdrop-filter:blur(15px);
 }
 
-.card:hover{
-transform:translateY(-5px);
-border-color:#2d2d2d;
+.product-card:hover{
+transform:translateY(-10px);
+border-color:#3b82f6;
+box-shadow:0 20px 50px rgba(37,99,235,.2);
 }
 
-.card h3{
+.product-info h3{
 font-size:22px;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
-.card p{
-color:#777;
-font-size:14px;
+.product-info p{
+color:#94a3b8;
 line-height:1.6;
 }
 
-.price{
-font-size:25px;
+.price-tag{
+font-size:22px;
 margin-top:20px;
 font-weight:700;
 }
 
-.discount{
-margin-top:8px;
-color:#00ffb3;
-font-size:13px;
-display:none;
-}
-
-.qty{
-margin-top:20px;
+.qty-container{
 display:flex;
 align-items:center;
 gap:10px;
-}
-
-.qty input{
-width:80px;
-padding:10px;
-border-radius:10px;
-background:#111;
-border:1px solid #222;
-color:white;
-}
-
-.buttons{
-display:flex;
-gap:10px;
 margin-top:20px;
 }
 
-.btn{
+.qty-input{
+width:80px;
+padding:10px;
+background:#0f172a;
+border:1px solid #1e293b;
+border-radius:10px;
+color:white;
+}
+
+.action-container{
+display:flex;
+gap:12px;
+margin-top:20px;
+}
+
+.store-btn{
 flex:1;
-padding:12px;
-border-radius:12px;
-text-decoration:none;
 display:flex;
 justify-content:center;
 align-items:center;
-gap:8px;
-font-size:14px;
-font-weight:600;
+gap:10px;
+padding:14px;
+border-radius:14px;
+text-decoration:none;
+font-weight:700;
 transition:.3s;
 }
 
-.whatsapp{
-background:#fff;
+.btn-white{
+background:white;
 color:black;
 }
 
-.telegram{
-background:#141414;
-border:1px solid #252525;
+.btn-dark{
+background:#111827;
+border:1px solid #1e293b;
 color:white;
 }
 
-.btn:hover{
-transform:scale(1.03);
+.store-btn:hover{
+transform:translateY(-3px);
 }
 
-/* SERVICE BOX */
+/* TOTAL */
 
-.service-box{
-background:#0d0d0d;
-padding:35px;
-border-radius:25px;
-border:1px solid #1b1b1b;
-line-height:2;
-color:#cfcfcf;
-}
-
-/* CART */
-
-.cart{
+.cart-sticky{
 position:fixed;
 bottom:25px;
 right:25px;
 background:white;
 color:black;
-padding:15px 25px;
-border-radius:60px;
+padding:18px 25px;
+border-radius:20px;
 display:none;
 align-items:center;
 gap:20px;
-font-weight:700;
 z-index:999;
+font-weight:700;
 }
 
-.cart a{
-text-decoration:none;
+.cart-order-btn{
 background:black;
 color:white;
-padding:10px 20px;
-border-radius:40px;
+padding:10px 18px;
+border-radius:12px;
+text-decoration:none;
+}
+
+/* NOTIFICATION */
+
+#notify{
+position:fixed;
+top:30px;
+right:30px;
+background:#0f172a;
+border:1px solid #1e293b;
+padding:18px 25px;
+border-radius:15px;
+z-index:9999999;
+transform:translateX(400px);
+transition:.5s;
+}
+
+#notify.show{
+transform:translateX(0);
 }
 
 /* CURRENCY */
 
-.currency-box{
-margin-top:20px;
-display:flex;
-justify-content:center;
-gap:10px;
-}
-
-.currency-box select{
+#currency{
+position:fixed;
+top:100px;
+right:20px;
+z-index:999;
+background:#0f172a;
+color:white;
+border:1px solid #1e293b;
 padding:12px;
 border-radius:12px;
-background:#111;
-color:white;
-border:1px solid #222;
 }
 
 /* FOOTER */
@@ -427,27 +485,9 @@ border:1px solid #222;
 footer{
 padding:60px 20px;
 text-align:center;
-color:#666;
-border-top:1px solid #141414;
-margin-top:80px;
-}
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-.hero h1{
-font-size:42px;
-}
-
-nav{
-padding:18px 5%;
-}
-
-.nav-links{
-gap:15px;
-}
-
+color:#94a3b8;
+margin-top:100px;
+border-top:1px solid #1e293b;
 }
 
 </style>
@@ -455,26 +495,47 @@ gap:15px;
 
 <body>
 
-<div class="bg" id="bg"></div>
-
 <div id="loader">
-<div class="loader-logo">WELCOME TO MITZII STORE</div>
-<div class="loader-text">LOADING SYSTEM...</div>
+
+<div class="loader-logo">
+<span>M</span>
+<span>I</span>
+<span>T</span>
+<span>Z</span>
+<span>I</span>
+<span>I</span>
 </div>
 
-<div class="notification" id="notify">
-<h4 id="notifyTitle">Success</h4>
-<p id="notifyText">Completed</p>
+<div class="loader-text">
+WELCOME TO MITZII STORE
 </div>
+
+<div class="loader-line">
+<div class="loader-fill"></div>
+</div>
+
+<div class="loader-sub">
+PREMIUM SERVICES
+</div>
+
+</div>
+
+<div id="notify"></div>
+
+<select id="currency">
+<option value="1">LKR</option>
+<option value="0.0033">USD</option>
+</select>
+
+<div class="bg-animation" id="bg"></div>
 
 <nav>
 <div class="logo">MITZII.</div>
 
 <div class="nav-links">
-<a href="#services">Services</a>
-<a href="#panels">Panels</a>
 <a href="#vpn">VPN</a>
-<a href="#bots">Bots</a>
+<a href="#bots">BOTS</a>
+<a href="#panel">PANELS</a>
 </div>
 </nav>
 
@@ -483,421 +544,344 @@ gap:15px;
 <h1>MITZII STORE</h1>
 
 <p>
-Premium automation systems, bug bots, secure VPS solutions,
-advanced infrastructure panels and networking services.
+Premium Bots, Premium VPN, Infrastructure Panels,
+Deploy Services & Advanced Digital Solutions.
 </p>
 
-<a href="#bots" class="hero-btn">Browse Collection</a>
-
-<div class="currency-box">
-<select id="currency" onchange="updateCurrency()">
-<option value="LKR">LKR</option>
-<option value="USD">USD</option>
-<option value="INR">INR</option>
-</select>
-</div>
+<a href="#bots" class="hero-btn">
+Browse Collection
+</a>
 
 </section>
 
-<!-- LOGIN -->
+<div class="container">
 
-<div class="auth-box">
+<div class="auth-card">
 
-<div class="auth-tabs">
-<button class="tab-btn active" onclick="showForm('login')">Login</button>
-<button class="tab-btn" onclick="showForm('signup')">Sign Up</button>
-</div>
+<h2>Portal Login</h2>
 
-<div class="auth-form active" id="loginForm">
-<input type="text" class="input" placeholder="Username">
-<input type="password" class="input" placeholder="Password">
+<p>
+Secure access system
+</p>
 
-<button class="auth-btn" onclick="loginUser()">
-Login Account
+<input type="text" class="input-field" id="username" placeholder="Username">
+
+<input type="password" class="input-field" id="password" placeholder="Password">
+
+<button class="submit-btn" onclick="loginUser()">
+Continue
 </button>
-</div>
 
-<div class="auth-form" id="signupForm">
-<input type="text" class="input" placeholder="Full Name">
-<input type="email" class="input" placeholder="Email">
-<input type="password" class="input" placeholder="Password">
+<div class="social-row">
 
-<button class="auth-btn" onclick="signupUser()">
-Create Account
+<button class="social-btn" onclick="notify('Google Login Connected')">
+<i class="fa-brands fa-google"></i>
 </button>
+
+<button class="social-btn" onclick="notify('Telegram Connected')">
+<i class="fa-brands fa-telegram"></i>
+</button>
+
+<button class="social-btn" onclick="notify('WhatsApp Connected')">
+<i class="fa-brands fa-whatsapp"></i>
+</button>
+
 </div>
 
 </div>
 
 <!-- SERVICES -->
 
-<section class="section" id="services">
-
-<h2 class="section-title">Available Services</h2>
-
-<div class="service-box">
-
-Customize Web Available<br>
-BUG Bot SC Available<br>
-High Secure Panel Available<br>
-VPS Account Available<br>
-Mobile Tool Services Available<br><br>
-
-Fast Service<br>
-Secure System<br>
-Trusted Work<br><br>
-
-Camera Access Tools<br>
-WhatsApp Access Tools<br>
-Facebook Access Tools<br>
-Gallery Access Tools<br>
-Location Tracking<br>
-Device Control Features<br>
-
+<div class="section-title">
+Services Available
 </div>
 
-</section>
+<div class="product-grid">
+
+<div class="product-card">
+<div class="product-info">
+<h3>Customize Web</h3>
+<p>Premium custom website solutions.</p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-info">
+<h3>BUG Bot SC</h3>
+<p>Advanced secure bot systems.</p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-info">
+<h3>High Secure Panel</h3>
+<p>Private infrastructure management.</p>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-info">
+<h3>VPS Account</h3>
+<p>Fast and secure cloud hosting.</p>
+</div>
+</div>
+
+</div>
 
 <!-- PANELS -->
 
-<section class="section" id="panels">
+<div class="section-title" id="panel">
+Pterodactyl Panels
+</div>
 
-<h2 class="section-title">Pterodactyl Panels</h2>
+<div class="product-grid">
 
-<div class="grid">
+<div class="product-card" data-price="500">
 
-<div class="card">
+<div class="product-info">
 <h3>Unlimited Panel</h3>
-<p>Unlimited resources high performance hosting panel.</p>
-<div class="price" data-price="500">Rs. 500</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
+<p>Unlimited CPU & Memory</p>
+<div class="price-tag">Rs. 500</div>
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<div class="qty-container">
+<label>Qty</label>
+<input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
+</div>
+
+<div class="action-container">
+
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
+<a href="https://t.me/Devmitzii" class="store-btn btn-dark">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
-</div>
+
 </div>
 
-<div class="card">
+</div>
+
+<div class="product-card" data-price="1600">
+
+<div class="product-info">
 <h3>Admin Panel</h3>
-<p>Advanced administration access panel.</p>
-<div class="price" data-price="1600">Rs. 1600</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
+<p>Advanced management access.</p>
+<div class="price-tag">Rs. 1600</div>
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<div class="qty-container">
+<label>Qty</label>
+<input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
+</div>
+
+<div class="action-container">
+
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
+<a href="https://t.me/Devmitzii" class="store-btn btn-dark">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
-</div>
-</div>
 
 </div>
 
-</section>
+</div>
+
+</div>
 
 <!-- VPN -->
 
-<section class="section" id="vpn">
+<div class="section-title" id="vpn">
+Premium VPN
+</div>
 
-<h2 class="section-title">Premium VPN</h2>
+<div class="product-grid">
 
-<div class="grid">
+<div class="product-card" data-price="300">
 
-<div class="card">
+<div class="product-info">
 <h3>100GB VPN</h3>
-<p>High speed secure vpn access.</p>
-<div class="price" data-price="300">Rs. 300</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
+<p>Secure premium network.</p>
+<div class="price-tag">Rs. 300</div>
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<div class="qty-container">
+<label>Qty</label>
+<input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
+</div>
+
+<div class="action-container">
+
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
+<a href="https://t.me/Devmitzii" class="store-btn btn-dark">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
-</div>
+
 </div>
 
-<div class="card">
+</div>
+
+<div class="product-card" data-price="800">
+
+<div class="product-info">
 <h3>500GB VPN</h3>
-<p>Ultra secure unlimited speed connection.</p>
-<div class="price" data-price="800">Rs. 800</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
+<p>Fast premium speed.</p>
+<div class="price-tag">Rs. 800</div>
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<div class="qty-container">
+<label>Qty</label>
+<input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
+</div>
+
+<div class="action-container">
+
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
+<a href="https://t.me/Devmitzii" class="store-btn btn-dark">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
-</div>
+
 </div>
 
-<div class="card">
+</div>
+
+<div class="product-card" data-price="1150">
+
+<div class="product-info">
 <h3>Unlimited VPN</h3>
-<p>Unlimited premium vpn package.</p>
-<div class="price" data-price="1150">Rs. 1150</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
+<p>Unlimited secure connection.</p>
+<div class="price-tag">Rs. 1150</div>
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<div class="qty-container">
+<label>Qty</label>
+<input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
+</div>
+
+<div class="action-container">
+
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
-</div>
-
-</div>
-
-</section>
-
-<!-- BUG BOTS -->
-
-<section class="section" id="bots">
-
-<h2 class="section-title">Bug Bots</h2>
-
-<div class="grid">
-
-<!-- BOT -->
-
-<div class="card bot-card">
-<h3>Tredict</h3>
-<p>1 Month Package</p>
-<div class="price" data-price="1500">Rs. 1500</div>
-<div class="discount">12.5% Discount Applied</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<a href="https://t.me/Devmitzii" class="store-btn btn-dark">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
 </div>
 
-<div class="card bot-card">
-<h3>Lakiya Crasher</h3>
-<p>1 Month Package</p>
-<div class="price" data-price="1500">Rs. 1500</div>
-<div class="discount">12.5% Discount Applied</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
-</a>
-
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
 </div>
 
-<div class="card bot-card">
-<h3>Ovalinum</h3>
-<p>1 Month Package</p>
-<div class="price" data-price="1500">Rs. 1500</div>
-<div class="discount">12.5% Discount Applied</div>
+<!-- BOTS -->
 
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
+<div class="section-title" id="bots">
+Bug Bots
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
-</a>
+<div class="product-grid">
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
+<script>
+
+const bots = [
+["Tredict",1900],
+["Lakiya Crasher",1900],
+["Ovalinum",1900],
+["Deathline",1900],
+["Silent Killer",1900],
+["Resell Access",2500],
+["6 Month Access",6000],
+["Tredict APK",2800],
+["Otax APK",2800]
+];
+
+document.write(
+bots.map(bot=>`
+
+<div class="product-card" data-price="${bot[1]}">
+
+<div class="product-info">
+<h3>${bot[0]}</h3>
+<p>Premium Bot Access</p>
+<div class="price-tag">Rs. ${bot[1]}</div>
 </div>
+
+<div class="qty-container">
+<label>Qty</label>
+<input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
 </div>
 
-<div class="card bot-card">
-<h3>Death Line</h3>
-<p>1 Month Package</p>
-<div class="price" data-price="1500">Rs. 1500</div>
-<div class="discount">12.5% Discount Applied</div>
+<div class="action-container">
 
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
-</div>
-
-<div class="card bot-card">
-<h3>Silent Killer</h3>
-<p>1 Month Package</p>
-<div class="price" data-price="1500">Rs. 1500</div>
-<div class="discount">12.5% Discount Applied</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
+<a href="https://t.me/Devmitzii" class="store-btn btn-dark">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
 
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
-</div>
-
-<div class="card bot-card">
-<h3>All Bot 6 Month</h3>
-<p>Premium Package</p>
-<div class="price" data-price="5000">Rs. 5000</div>
-<div class="discount">12.5% Discount Applied</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
-</a>
-
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
-</div>
-
-<div class="card">
-<h3>Tredic Bug APK</h3>
-<p>APK Version</p>
-<div class="price" data-price="2800">Rs. 2800</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
-</a>
-
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
-</div>
-
-<div class="card">
-<h3>Otax Bug APK</h3>
-<p>APK Version</p>
-<div class="price" data-price="2800">Rs. 2800</div>
-
-<div class="qty">
-<input type="number" value="0" min="0" oninput="updateTotal()">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn whatsapp">
-<i class="fab fa-whatsapp"></i> WhatsApp
-</a>
-
-<a href="https://t.me/Devmitzii" class="btn telegram">
-<i class="fab fa-telegram"></i> Telegram
-</a>
-</div>
 </div>
 
 </div>
 
-</section>
+`).join("")
+);
 
-<!-- CART -->
+</script>
 
-<div class="cart" id="cart">
-<div id="total">Total : Rs. 0</div>
+</div>
 
-<a href="https://t.me/Devmitzii">
+</div>
+
+<div class="cart-sticky" id="cart">
+
+<div>
+Total :
+<span id="total">
+Rs. 0
+</span>
+</div>
+
+<a href="https://t.me/Devmitzii" class="cart-order-btn">
 Order
 </a>
+
 </div>
 
 <footer>
 
-MITZII STORE © 2026<br><br>
+MITZII STORE © 2026
 
-Developer : CYBER MITZII<br>
-Operations : DEATH LINE TEAM
+<br><br>
+
+Developer : CYBER MITZII
 
 </footer>
 
 <script>
-
-/* BACKGROUND PARTICLES */
-
-for(let i=0;i<120;i++){
-
-let star=document.createElement("span");
-
-star.style.left=Math.random()*100+"%";
-star.style.top=Math.random()*100+"%";
-
-star.style.animationDuration=
-(Math.random()*10)+5+"s";
-
-document.getElementById("bg").appendChild(star);
-
-}
 
 /* LOADER */
 
@@ -907,27 +891,42 @@ setTimeout(()=>{
 
 document.getElementById("loader").style.opacity="0";
 
+notify("WELCOME TO MITZII STORE");
+
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
 },1000);
 
-showNotification(
-"MITZII STORE",
-"System Loaded Successfully"
-);
-
-},2500);
+},3500);
 
 });
 
+/* LOGIN */
+
+function loginUser(){
+
+const user=document.getElementById("username").value;
+const pass=document.getElementById("password").value;
+
+if(user==="" || pass===""){
+
+notify("ENTER USERNAME & PASSWORD");
+
+return;
+
+}
+
+notify("LOGIN SUCCESSFUL");
+
+}
+
 /* NOTIFICATION */
 
-function showNotification(title,text){
+function notify(text){
 
-let box=document.getElementById("notify");
+const box=document.getElementById("notify");
 
-document.getElementById("notifyTitle").innerText=title;
-document.getElementById("notifyText").innerText=text;
+box.innerHTML=text;
 
 box.classList.add("show");
 
@@ -937,137 +936,78 @@ box.classList.remove("show");
 
 }
 
-/* LOGIN */
-
-function loginUser(){
-
-showNotification(
-"Login Success",
-"Welcome Back To MITZII STORE"
-);
-
-}
-
-function signupUser(){
-
-showNotification(
-"Account Created",
-"Signup Completed Successfully"
-);
-
-}
-
-/* SWITCH FORMS */
-
-function showForm(type){
-
-document.querySelectorAll(".auth-form")
-.forEach(el=>el.classList.remove("active"));
-
-document.querySelectorAll(".tab-btn")
-.forEach(el=>el.classList.remove("active"));
-
-if(type==="login"){
-
-document.getElementById("loginForm")
-.classList.add("active");
-
-document.querySelectorAll(".tab-btn")[0]
-.classList.add("active");
-
-}else{
-
-document.getElementById("signupForm")
-.classList.add("active");
-
-document.querySelectorAll(".tab-btn")[1]
-.classList.add("active");
-
-}
-
-}
-
 /* TOTAL */
 
-function updateTotal(){
+function updateCart(){
 
 let total=0;
 
-document.querySelectorAll(".card").forEach(card=>{
+document.querySelectorAll(".product-card").forEach(card=>{
 
-let priceElement=
-card.querySelector(".price");
+const price=parseFloat(card.dataset.price) || 0;
 
-if(!priceElement) return;
+const qty=parseInt(card.querySelector(".qty-input")?.value) || 0;
 
-let price=
-parseFloat(priceElement.dataset.price);
-
-let qty=
-parseInt(card.querySelector("input").value)||0;
-
-let subtotal=price*qty;
-
-/* DISCOUNT FOR BUG BOTS */
-
-if(card.classList.contains("bot-card")
-&& qty>0){
-
-subtotal=subtotal-(subtotal*0.125);
-
-card.querySelector(".discount")
-.style.display="block";
-
-}else{
-
-let dis=card.querySelector(".discount");
-
-if(dis) dis.style.display="none";
-
-}
-
-total+=subtotal;
+total += price * qty;
 
 });
 
-let currency=
-document.getElementById("currency").value;
-
-let converted=total;
-let symbol="Rs.";
-
-if(currency==="USD"){
-converted=(total/300).toFixed(2);
-symbol="$";
-}
-
-if(currency==="INR"){
-converted=(total/3.5).toFixed(2);
-symbol="₹";
-}
-
-document.getElementById("total")
-.innerText=`Total : ${symbol} ${converted}`;
+document.getElementById("total").innerHTML=
+"Rs. " + total.toLocaleString();
 
 if(total>0){
-
-document.getElementById("cart")
-.style.display="flex";
-
+document.getElementById("cart").style.display="flex";
 }else{
-
-document.getElementById("cart")
-.style.display="none";
-
+document.getElementById("cart").style.display="none";
 }
 
 }
 
 /* CURRENCY */
 
-function updateCurrency(){
+document.getElementById("currency").addEventListener("change",function(){
 
-updateTotal();
+const rate=parseFloat(this.value);
+
+document.querySelectorAll(".product-card").forEach(card=>{
+
+const base=parseFloat(card.dataset.price);
+
+const tag=card.querySelector(".price-tag");
+
+if(rate===1){
+
+tag.innerHTML="Rs. " + base;
+
+}else{
+
+tag.innerHTML="$ " + (base*rate).toFixed(2);
+
+}
+
+});
+
+});
+
+/* BG */
+
+const bg=document.getElementById("bg");
+
+for(let i=0;i<35;i++){
+
+const c=document.createElement("div");
+
+c.classList.add("circle");
+
+const size=Math.random()*120+20;
+
+c.style.width=size+"px";
+c.style.height=size+"px";
+c.style.left=Math.random()*100+"%";
+c.style.animationDuration=Math.random()*15+10+"s";
+c.style.animationDelay=Math.random()*5+"s";
+
+bg.appendChild(c);
 
 }
 
