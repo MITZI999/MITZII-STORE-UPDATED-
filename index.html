@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MITZII STORE</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
@@ -13,198 +13,194 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+font-family:Segoe UI,sans-serif;
 scroll-behavior:smooth;
 }
 
 body{
 background:#02040a;
-color:#fff;
+color:white;
 overflow-x:hidden;
 }
 
-/* SCROLLBAR */
+/* CYBER BACKGROUND */
 
-::-webkit-scrollbar{
-width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#145dff;
-border-radius:20px;
-}
-
-/* BACKGROUND */
-
-.space{
+.cyber-bg{
 position:fixed;
 width:100%;
 height:100%;
 top:0;
 left:0;
 overflow:hidden;
-z-index:-1;
+z-index:-2;
 background:
-radial-gradient(circle at top,#08152d,#02040a 70%);
+radial-gradient(circle at top,#0f2d7a 0%,#02040a 45%);
 }
 
-.star{
+.stars{
+position:absolute;
+width:100%;
+height:100%;
+background:url("https://i.imgur.com/YKY28eT.png");
+opacity:.35;
+animation:moveStars 100s linear infinite;
+}
+
+@keyframes moveStars{
+from{transform:translateY(0);}
+to{transform:translateY(-2000px);}
+}
+
+.shooting-star{
 position:absolute;
 width:2px;
 height:120px;
-background:linear-gradient(transparent,#fff);
-border-radius:50%;
+background:linear-gradient(white,transparent);
+opacity:.8;
 transform:rotate(45deg);
-animation:meteor linear infinite;
-opacity:.7;
+animation:shoot 6s linear infinite;
 }
 
-@keyframes meteor{
+@keyframes shoot{
 0%{
-transform:translateY(-200px) translateX(0) rotate(45deg);
-opacity:1;
+transform:translateX(0) translateY(0) rotate(45deg);
+opacity:0;
 }
+10%{opacity:1;}
 100%{
-transform:translateY(1000px) translateX(-900px) rotate(45deg);
+transform:translateX(-1200px) translateY(1200px) rotate(45deg);
 opacity:0;
 }
 }
 
-/* LOADER */
+/* LOADING */
 
 #loader{
 position:fixed;
 width:100%;
-height:100vh;
+height:100%;
 background:#02040a;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 flex-direction:column;
-z-index:999999;
+z-index:99999;
 }
 
 .loader-title{
-font-size:70px;
+font-size:65px;
 font-weight:900;
-letter-spacing:2px;
-background:linear-gradient(90deg,#fff,#0f6bff);
+letter-spacing:3px;
+background:linear-gradient(to right,#fff,#246bff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 animation:glow 2s infinite alternate;
-text-align:center;
 }
 
 .loader-sub{
-margin-top:10px;
-color:#bbb;
-letter-spacing:5px;
-font-size:15px;
+margin-top:15px;
+color:#9fb7ff;
+letter-spacing:6px;
+font-size:13px;
 }
 
-.loader-bar{
-width:420px;
-height:10px;
+.loading-bar{
+width:340px;
+height:14px;
 background:#111827;
-border-radius:30px;
+border-radius:40px;
 overflow:hidden;
-margin-top:40px;
+margin-top:35px;
+border:1px solid #1f3b89;
 }
 
-.loader-fill{
+.loading-fill{
 height:100%;
 width:0%;
-border-radius:30px;
-background:linear-gradient(90deg,#fff,#0f6bff);
-animation:loading 4s forwards;
+background:linear-gradient(to right,#ffffff,#005eff);
+animation:loadbar 4s forwards;
+border-radius:40px;
 }
 
-@keyframes loading{
-0%{
-width:0%;
-}
-100%{
-width:100%;
-}
+@keyframes loadbar{
+to{width:100%;}
 }
 
 @keyframes glow{
 from{
-filter:drop-shadow(0 0 5px #0f6bff);
+filter:drop-shadow(0 0 10px #246bff);
 }
 to{
-filter:drop-shadow(0 0 20px #0f6bff);
+filter:drop-shadow(0 0 35px #246bff);
 }
 }
 
-/* LOGIN */
+/* LOGIN SCREEN */
 
-.login-screen{
+.auth-screen{
 position:fixed;
 width:100%;
-height:100vh;
-background:#02040a;
+height:100%;
+background:rgba(2,4,10,.95);
+backdrop-filter:blur(18px);
 display:none;
 justify-content:center;
 align-items:center;
-z-index:99999;
-padding:20px;
+z-index:9999;
 }
 
-.login-box{
-width:100%;
-max-width:420px;
-padding:35px;
-border-radius:25px;
-background:rgba(255,255,255,.04);
+.auth-box{
+width:420px;
+background:rgba(8,15,35,.95);
 border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-box-shadow:0 0 50px rgba(0,0,0,.5);
+padding:40px;
+border-radius:25px;
+box-shadow:0 0 40px rgba(0,90,255,.3);
 }
 
-.login-box h1{
-font-size:35px;
+.auth-box h1{
+font-size:38px;
 margin-bottom:10px;
 }
 
-.login-box p{
-color:#999;
+.auth-box p{
+color:#8ea6e8;
 margin-bottom:25px;
 }
 
-.login-box input{
+.input-box{
 width:100%;
 padding:15px;
-margin-bottom:15px;
+background:#0f172a;
 border:none;
 outline:none;
-border-radius:15px;
-background:#09111f;
-color:#fff;
-border:1px solid #162036;
+margin-bottom:15px;
+border-radius:14px;
+color:white;
 font-size:15px;
 }
 
-.login-btn{
+.auth-btn{
 width:100%;
 padding:15px;
 border:none;
-border-radius:15px;
-background:linear-gradient(90deg,#145dff,#0f6bff);
-color:#fff;
-font-weight:700;
+background:linear-gradient(to right,#005eff,#2d8cff);
+color:white;
 font-size:15px;
+font-weight:700;
+border-radius:14px;
 cursor:pointer;
+margin-bottom:10px;
 transition:.3s;
 }
 
-.login-btn:hover{
+.auth-btn:hover{
 transform:scale(1.03);
 }
 
 .guest-btn{
-margin-top:15px;
-background:#101826;
+background:#101827;
+border:1px solid rgba(255,255,255,.08);
 }
 
 /* NOTIFICATION */
@@ -213,366 +209,315 @@ background:#101826;
 position:fixed;
 top:20px;
 right:-400px;
-background:#08111f;
-border:1px solid #145dff;
-padding:18px 25px;
-border-radius:15px;
-z-index:999999;
+background:#0f172a;
+border:1px solid #2563eb;
+padding:16px 24px;
+border-radius:14px;
+box-shadow:0 0 20px rgba(0,90,255,.35);
 transition:.5s;
-box-shadow:0 0 30px rgba(20,93,255,.4);
+z-index:99999;
 }
 
 .notify.show{
 right:20px;
 }
 
+/* MAIN */
+
+.main{
+display:none;
+}
+
 /* SIDEBAR */
 
 .sidebar{
 position:fixed;
-left:0;
-top:0;
-width:280px;
+width:260px;
 height:100%;
-background:rgba(0,0,0,.45);
-backdrop-filter:blur(20px);
-border-right:1px solid rgba(255,255,255,.05);
+background:rgba(5,10,22,.95);
+border-right:1px solid rgba(255,255,255,.06);
 padding:25px;
-overflow-y:auto;
+overflow:auto;
 }
 
 .logo{
-font-size:40px;
+font-size:42px;
 font-weight:900;
 margin-bottom:40px;
 }
 
+.logo span{
+color:#2f6bff;
+}
+
 .menu-title{
+color:#6d7da9;
 font-size:13px;
-color:#777;
 margin-bottom:15px;
-letter-spacing:2px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
 }
 
 .menu a{
+text-decoration:none;
+color:white;
+padding:15px;
+border-radius:14px;
 display:flex;
 align-items:center;
-gap:12px;
-padding:15px;
-margin-bottom:10px;
-border-radius:14px;
-text-decoration:none;
-color:#d9d9d9;
+gap:14px;
 transition:.3s;
 }
 
-.menu a:hover{
-background:#145dff;
+.menu a:hover,
+.menu a.active{
+background:linear-gradient(to right,#0f2c77,#123db1);
 }
 
-/* MAIN */
-
-.main{
-margin-left:280px;
-padding:30px;
+.community{
+margin-top:35px;
 }
 
 /* TOPBAR */
 
+.content{
+margin-left:260px;
+padding:20px;
+}
+
 .topbar{
+height:80px;
+background:rgba(5,10,22,.9);
+border:1px solid rgba(255,255,255,.05);
+border-radius:20px;
 display:flex;
+align-items:center;
 justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
-flex-wrap:wrap;
-gap:20px;
+padding:0 25px;
+margin-bottom:25px;
 }
 
-.search{
-background:#09111f;
-padding:15px 20px;
-border-radius:15px;
-display:flex;
-align-items:center;
-gap:10px;
-width:320px;
-border:1px solid #162036;
-}
-
-.search input{
-background:none;
-border:none;
-outline:none;
-color:#fff;
-width:100%;
-}
-
-.user{
+.top-icons{
 display:flex;
 align-items:center;
 gap:15px;
 }
 
-.avatar{
+.circle{
 width:45px;
 height:45px;
-background:#145dff;
+background:linear-gradient(to right,#005eff,#3c82ff);
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 border-radius:50%;
-font-weight:bold;
+font-weight:800;
 }
 
 /* HERO */
 
 .hero{
 background:
-linear-gradient(to right,rgba(7,15,30,.95),rgba(10,30,80,.5)),
-url('https://images.unsplash.com/photo-1539721972319-f0e80a00d424?q=80&w=1600&auto=format&fit=crop');
+linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+url("https://i.imgur.com/T4aA6yA.jpeg");
 background-size:cover;
 background-position:center;
 padding:40px;
-border-radius:30px;
-border:1px solid rgba(255,255,255,.06);
+border-radius:25px;
+border:1px solid rgba(255,255,255,.05);
 margin-bottom:30px;
-display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
-gap:20px;
 }
 
 .hero h1{
-font-size:55px;
-margin-top:10px;
+font-size:52px;
+margin-bottom:10px;
 }
 
 .hero p{
-margin-top:15px;
-color:#ccc;
-max-width:500px;
-line-height:1.7;
+color:#9fb7ff;
+font-size:18px;
+max-width:700px;
+line-height:1.6;
 }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-}
+/* GRID */
 
-.stat-box{
-width:150px;
-padding:20px;
-background:rgba(255,255,255,.03);
-border-radius:20px;
-border:1px solid rgba(255,255,255,.05);
-text-align:center;
-}
-
-.stat-box h2{
-margin-top:10px;
-font-size:30px;
-}
-
-/* SECTION */
-
-.section{
-margin-top:35px;
-}
-
-.section-title{
-font-size:34px;
-margin-bottom:25px;
-font-weight:900;
-}
-
-/* PANEL */
-
-.panel-box{
-background:rgba(255,255,255,.03);
-padding:30px;
-border-radius:30px;
-border:1px solid rgba(255,255,255,.05);
-}
-
-.panel-grid{
+.grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
-margin-top:30px;
+margin-top:25px;
 }
 
-.panel-card{
-background:#07101f;
-padding:25px;
-border-radius:20px;
-border:1px solid #15223d;
-transition:.3s;
-}
-
-.panel-card:hover{
-transform:translateY(-6px);
-border-color:#145dff;
-}
-
-.panel-card h3{
-font-size:25px;
-margin-bottom:15px;
-}
-
-.price{
-font-size:35px;
-font-weight:900;
-margin-bottom:20px;
-color:#fff;
-}
-
-.order-btn{
-display:block;
-padding:15px;
-text-align:center;
-border-radius:15px;
-background:linear-gradient(90deg,#145dff,#0f6bff);
-color:#fff;
-text-decoration:none;
-font-weight:bold;
-}
-
-/* CARDS */
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
+/* CARD */
 
 .card{
-background:rgba(255,255,255,.03);
-padding:30px;
-border-radius:25px;
+background:rgba(8,15,35,.95);
 border:1px solid rgba(255,255,255,.05);
+padding:25px;
+border-radius:22px;
 transition:.3s;
 }
 
 .card:hover{
 transform:translateY(-6px);
-border-color:#145dff;
+box-shadow:0 0 25px rgba(0,90,255,.2);
 }
 
-.card h2{
-font-size:30px;
-margin-bottom:15px;
+.card h3{
+margin-bottom:10px;
+font-size:24px;
 }
 
-.card p{
-color:#999;
+.price{
+font-size:28px;
+font-weight:800;
+margin:15px 0;
+color:#3e7dff;
+}
+
+.desc{
+color:#8ea6e8;
 line-height:1.6;
-margin-bottom:20px;
 }
 
 .qty{
 display:flex;
 align-items:center;
 gap:10px;
-margin-bottom:20px;
+margin-top:20px;
 }
 
 .qty button{
-width:40px;
-height:40px;
+width:35px;
+height:35px;
 border:none;
-border-radius:10px;
-background:#101826;
-color:#fff;
-font-size:20px;
+background:#111d3f;
+color:white;
+border-radius:8px;
+font-size:18px;
 cursor:pointer;
 }
 
 .qty input{
-width:60px;
-height:40px;
+width:55px;
+height:35px;
 text-align:center;
-background:#101826;
+background:#08101f;
 border:none;
-border-radius:10px;
-color:#fff;
+color:white;
+border-radius:8px;
 }
 
-.btns{
+.order-btns{
 display:flex;
 gap:10px;
 margin-top:20px;
 }
 
-.btns a{
+.order-btns a{
 flex:1;
-padding:15px;
 text-align:center;
-border-radius:15px;
+padding:13px;
+border-radius:12px;
 text-decoration:none;
-font-weight:bold;
+font-weight:700;
 transition:.3s;
 }
 
-.whatsapp{
-background:#111827;
-color:#fff;
+.tg{
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+color:white;
 }
 
-.telegram{
-background:linear-gradient(90deg,#145dff,#0f6bff);
-color:#fff;
+.wa{
+background:#006eff;
+color:white;
 }
 
-.btns a:hover{
+.order-btns a:hover{
 transform:scale(1.03);
+}
+
+.section-title{
+font-size:35px;
+margin:40px 0 20px;
+}
+
+/* SERVICES */
+
+.services{
+background:rgba(8,15,35,.95);
+padding:30px;
+border-radius:22px;
+line-height:2;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.services h2{
+font-size:35px;
+margin-bottom:20px;
+}
+
+.services p{
+color:#aab7d9;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:50px;
+padding:30px;
+text-align:center;
+color:#8391b6;
 }
 
 /* MOBILE */
 
-@media(max-width:1000px){
+@media(max-width:900px){
 
 .sidebar{
-left:-100%;
-transition:.5s;
-z-index:99999;
+left:-260px;
+transition:.4s;
+z-index:999;
 }
 
 .sidebar.active{
 left:0;
 }
 
-.main{
+.content{
 margin-left:0;
-padding:20px;
-}
-
-.hero{
-padding:30px;
 }
 
 .hero h1{
-font-size:40px;
+font-size:36px;
 }
 
 .loader-title{
-font-size:40px;
-}
-
-.loader-bar{
-width:90%;
+font-size:45px;
 }
 
 }
 
 </style>
 </head>
-
 <body>
 
-<!-- BACKGROUND -->
+<div class="cyber-bg">
+<div class="stars"></div>
 
-<div class="space" id="space"></div>
+<div class="shooting-star" style="top:0%;left:90%;animation-delay:0s;"></div>
+<div class="shooting-star" style="top:10%;left:70%;animation-delay:2s;"></div>
+<div class="shooting-star" style="top:20%;left:95%;animation-delay:4s;"></div>
+<div class="shooting-star" style="top:30%;left:80%;animation-delay:6s;"></div>
+
+</div>
 
 <!-- LOADER -->
 
@@ -583,136 +528,130 @@ MITZII STORE
 </div>
 
 <div class="loader-sub">
-PREMIUM DIGITAL SOLUTIONS
+CYBER DIGITAL SYSTEM
 </div>
 
-<div class="loader-bar">
-<div class="loader-fill"></div>
+<div class="loading-bar">
+<div class="loading-fill"></div>
 </div>
 
 </div>
 
 <!-- LOGIN -->
 
-<div class="login-screen" id="login">
+<div class="auth-screen" id="authScreen">
 
-<div class="login-box">
+<div class="auth-box">
 
-<h1>MITZII LOGIN</h1>
+<h1>Cyber Login</h1>
 
-<p>
-Secure dashboard access portal
-</p>
+<p>Secure Digital Access Panel</p>
 
-<input type="text" placeholder="Username">
+<input type="text" class="input-box" placeholder="Username">
 
-<input type="password" placeholder="Password">
+<input type="password" class="input-box" placeholder="Password">
 
-<button class="login-btn" onclick="loginUser()">
+<button class="auth-btn" onclick="loginUser()">
 LOGIN
 </button>
 
-<button class="login-btn guest-btn" onclick="guestUser()">
+<button class="auth-btn guest-btn" onclick="guestLogin()">
 CONTINUE AS GUEST
+</button>
+
+<button class="auth-btn" onclick="signupUser()">
+SIGN UP
 </button>
 
 </div>
 
 </div>
 
-<!-- NOTIFY -->
+<!-- NOTIFICATION -->
 
 <div class="notify" id="notify">
 Successfully Logged In
 </div>
+
+<!-- MAIN -->
+
+<div class="main" id="mainSite">
 
 <!-- SIDEBAR -->
 
 <div class="sidebar" id="sidebar">
 
 <div class="logo">
-Mitzii.
+Mitzii<span>.</span>
 </div>
 
-<div class="menu-title">
-MENU
-</div>
+<div class="menu-title">MENU</div>
 
 <div class="menu">
 
-<a href="#"><i class="fa-solid fa-house"></i> Dashboard</a>
+<a href="#" class="active"><i class="fa-solid fa-house"></i> Dashboard</a>
 
-<a href="#"><i class="fa-solid fa-shield"></i> VPN Services</a>
+<a href="#vpn"><i class="fa-solid fa-shield"></i> VPN Services</a>
 
-<a href="#"><i class="fa-solid fa-bug"></i> Bug Bots</a>
+<a href="#bots"><i class="fa-solid fa-bug"></i> Bug Bots</a>
 
-<a href="#"><i class="fa-solid fa-server"></i> Pterodactyl Panels</a>
+<a href="#panels"><i class="fa-solid fa-cube"></i> Pterodactyl Panels</a>
 
-<a href="#"><i class="fa-solid fa-user"></i> Developer</a>
-
-<a href="#"><i class="fa-solid fa-box"></i> My Orders</a>
-
-<a href="#"><i class="fa-solid fa-headset"></i> Support Tickets</a>
+<a href="#developer"><i class="fa-solid fa-user"></i> Developer</a>
 
 </div>
 
-<div class="menu-title" style="margin-top:40px;">
-COMMUNITY
-</div>
+<div class="community">
+
+<div class="menu-title">COMMUNITY</div>
 
 <div class="menu">
 
-<a href="https://wa.me/message/X45CUX4LO3AQD1">
-<i class="fa-brands fa-whatsapp"></i>
-WhatsApp
-</a>
-
-<a href="https://t.me/DevMiztii">
+<a href="https://t.me/CyberMitzii" target="_blank">
 <i class="fa-brands fa-telegram"></i>
-Telegram
+Telegram Contact
 </a>
 
-<a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<a href="https://t.me/devmitziii" target="_blank">
+<i class="fa-brands fa-telegram"></i>
+Telegram Channel
+</a>
+
+<a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j" target="_blank">
 <i class="fa-brands fa-whatsapp"></i>
 WhatsApp Channel
 </a>
 
-<a href="https://t.me/DevMitzii_lk">
-<i class="fa-brands fa-telegram"></i>
-Telegram Channel 1
-</a>
-
-<a href="https://t.me/DevMitziLK">
-<i class="fa-brands fa-telegram"></i>
-Telegram Channel 2
-</a>
+</div>
 
 </div>
 
 </div>
 
-<!-- MAIN -->
+<!-- CONTENT -->
 
-<div class="main">
-
-<!-- TOPBAR -->
+<div class="content">
 
 <div class="topbar">
 
-<div class="search">
-<i class="fa-solid fa-magnifying-glass"></i>
-<input type="text" placeholder="Search services">
+<div style="font-size:28px;cursor:pointer;" onclick="toggleMenu()">
+☰
 </div>
 
-<div class="user">
+<div class="top-icons">
 
-<div class="avatar">
+<div class="circle">
 M
 </div>
 
 <div>
-<h3>Mitzii User</h3>
-<p style="color:#0f6bff;">Online</p>
+<div style="font-weight:700;">
+Mitzii User
+</div>
+
+<div style="color:#4ade80;font-size:13px;">
+● Online
+</div>
 </div>
 
 </div>
@@ -723,164 +662,138 @@ M
 
 <div class="hero">
 
-<div>
-
-<p>WELCOME BACK</p>
-
 <h1>
-Mitzii User
+WELCOME BACK
 </h1>
 
 <p>
-Access premium digital services with high performance dashboard system.
+Premium cyber digital services with secure high-performance systems.
 </p>
 
 </div>
 
-<div class="stats">
+<!-- SERVICES -->
 
-<div class="stat-box">
-<p>Total Orders</p>
-<h2>12</h2>
+<div class="services">
+
+<h2>
+SERVICES AVAILABLE
+</h2>
+
+<p>
+
+Customize Web Available<br>
+BUG Bot SC Available<br>
+High Secure Panel Available<br>
+VPS Account Available<br>
+MOBILE HACK Available<br><br>
+
+Fast Service<br>
+Secure System<br>
+Trusted Work<br><br>
+
+FULL MOBILE HACKING TOOL AVAILABLE<br><br>
+
+CAMARA HACK<br>
+WHARTSAPP HACK<br>
+FACEBOOK HACK<br>
+GALLERY HACK<br>
+FULL DEVICE LOOK<br>
+PHONE RESET<br>
+LOCATION TRACK<br>
+
+</p>
+
 </div>
 
-<div class="stat-box">
-<p>Balance</p>
-<h2>2450</h2>
-</div>
+<!-- PANELS -->
 
-<div class="stat-box">
-<p>Services</p>
-<h2>6</h2>
-</div>
-
-<div class="stat-box">
-<p>Membership</p>
-<h2>VIP</h2>
-</div>
-
-</div>
-
-</div>
-
-<!-- PANEL -->
-
-<div class="section">
-
-<div class="section-title">
+<h2 class="section-title" id="panels">
 PTERODACTYL ADMIN PANEL
-</div>
+</h2>
 
-<div class="panel-box">
+<div class="grid">
 
-<p style="line-height:2;color:#ddd;">
-
-⚡ CPU : UNLIMITED <br>
-⚡ MEMORY : UNLIMITED <br>
-⚡ SUPER FAST & SPEED BOT DEVELOPMENT PANEL <br><br>
-
-ANTI DELAY <br>
-ANTI PROXY <br>
-30 DAY REPLACEMENT WARRANTY <br>
-24/7 WORKING <br>
-FULL ACCESS <br>
-ANTI DDOS <br>
-24 NODE SUPPORT
-
-</p>
-
-<div class="panel-grid">
-
-<div class="panel-card">
+<div class="card">
 <h3>Unlimited Panel</h3>
 <div class="price">Rs. 500</div>
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="order-btn">
-Order Now
-</a>
+<div class="desc">
+Unlimited CPU & Memory
+</div>
 </div>
 
-<div class="panel-card">
+<div class="card">
 <h3>Admin Panel</h3>
 <div class="price">Rs. 1600</div>
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="order-btn">
-Order Now
-</a>
+<div class="desc">
+High Speed Admin Access
+</div>
 </div>
 
-<div class="panel-card">
-<h3>PT Panel Resell</h3>
+<div class="card">
+<h3>PT Resell Access</h3>
 <div class="price">Rs. 2600</div>
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="order-btn">
-Order Now
-</a>
+<div class="desc">
+Reseller Control Access
+</div>
 </div>
 
-<div class="panel-card">
+<div class="card">
 <h3>Owner Panel</h3>
 <div class="price">Rs. 3500</div>
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="order-btn">
-Order Now
-</a>
+<div class="desc">
+Full Owner Permissions
+</div>
 </div>
 
-<div class="panel-card">
+<div class="card">
 <h3>Bug Bot Deploy</h3>
 <div class="price">Rs. 450</div>
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="order-btn">
-Order Now
-</a>
+<div class="desc">
+Fast Deployment System
+</div>
 </div>
 
-<div class="panel-card">
+<div class="card">
 <h3>MD Bot Deploy</h3>
 <div class="price">Rs. 400</div>
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="order-btn">
-Order Now
-</a>
+<div class="desc">
+Multi Device Deploy
 </div>
-
-</div>
-
 </div>
 
 </div>
 
 <!-- VPN -->
 
-<div class="section">
+<h2 class="section-title" id="vpn">
+PREMIUM VPN
+</h2>
 
-<div class="section-title">
-Premium VPN
-</div>
-
-<div class="cards">
+<div class="grid">
 
 <div class="card">
 
-<h2>100GB VPN</h2>
+<h3>100GB VPN</h3>
 
-<p>
-High speed & secure private network
-</p>
-
-<div class="price">
-Rs. 300
-</div>
+<div class="price">Rs. 300</div>
 
 <div class="qty">
-<button>-</button>
-<input type="text" value="0">
-<button>+</button>
+<button onclick="minus(this)">-</button>
+<input value="0">
+<button onclick="plus(this)">+</button>
 </div>
 
-<div class="btns">
+<div class="order-btns">
 
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="whatsapp">
-<i class="fa-brands fa-whatsapp"></i>
+<a href="https://t.me/CyberMitzii" class="tg">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
 
-<a href="https://t.me/DevMiztii" class="telegram">
-<i class="fa-brands fa-telegram"></i>
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="wa">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
 </div>
@@ -889,30 +802,26 @@ Rs. 300
 
 <div class="card">
 
-<h2>500GB VPN</h2>
+<h3>500GB VPN</h3>
 
-<p>
-Ultra secure & stable connection
-</p>
-
-<div class="price">
-Rs. 800
-</div>
+<div class="price">Rs. 800</div>
 
 <div class="qty">
-<button>-</button>
-<input type="text" value="0">
-<button>+</button>
+<button onclick="minus(this)">-</button>
+<input value="0">
+<button onclick="plus(this)">+</button>
 </div>
 
-<div class="btns">
+<div class="order-btns">
 
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="whatsapp">
-<i class="fa-brands fa-whatsapp"></i>
+<a href="https://t.me/CyberMitzii" class="tg">
+<i class="fa-brands fa-telegram"></i>
+Telegram
 </a>
 
-<a href="https://t.me/DevMiztii" class="telegram">
-<i class="fa-brands fa-telegram"></i>
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="wa">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
 </div>
@@ -921,36 +830,143 @@ Rs. 800
 
 <div class="card">
 
-<h2>Unlimited VPN</h2>
+<h3>Unlimited VPN</h3>
 
-<p>
-Unlimited speed premium routing
-</p>
-
-<div class="price">
-Rs. 1150
-</div>
+<div class="price">Rs. 1150</div>
 
 <div class="qty">
-<button>-</button>
-<input type="text" value="0">
-<button>+</button>
+<button onclick="minus(this)">-</button>
+<input value="0">
+<button onclick="plus(this)">+</button>
 </div>
 
-<div class="btns">
+<div class="order-btns">
 
-<a href="https://wa.me/message/X45CUX4LO3AQD1" class="whatsapp">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
-
-<a href="https://t.me/DevMiztii" class="telegram">
+<a href="https://t.me/CyberMitzii" class="tg">
 <i class="fa-brands fa-telegram"></i>
+Telegram
+</a>
+
+<a href="https://wa.me/message/X45CUX4LO3AQD1" class="wa">
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
 </a>
 
 </div>
 
 </div>
 
+</div>
+
+<!-- BUG BOTS -->
+
+<h2 class="section-title" id="bots">
+BUG BOTS
+</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Tredict</h3>
+<div class="price">Rs. 1500</div>
+<div class="desc">1 Month Access</div>
+</div>
+
+<div class="card">
+<h3>Lakiya Crasher</h3>
+<div class="price">Rs. 1500</div>
+<div class="desc">1 Month Access</div>
+</div>
+
+<div class="card">
+<h3>Ovalinum</h3>
+<div class="price">Rs. 1500</div>
+<div class="desc">1 Month Access</div>
+</div>
+
+<div class="card">
+<h3>Deathline</h3>
+<div class="price">Rs. 1500</div>
+<div class="desc">1 Month Access</div>
+</div>
+
+<div class="card">
+<h3>Silent Killer</h3>
+<div class="price">Rs. 1500</div>
+<div class="desc">1 Month Access</div>
+</div>
+
+<div class="card">
+<h3>Resell 1 Month</h3>
+<div class="price">Rs. 2000</div>
+<div class="desc">Bot Reseller Package</div>
+</div>
+
+<div class="card">
+<h3>6 Month Access</h3>
+<div class="price">Rs. 5000</div>
+<div class="desc">Long Term Package</div>
+</div>
+
+</div>
+
+<!-- DEVELOPER -->
+
+<h2 class="section-title" id="developer">
+DEVELOPER CONTACTS
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Telegram Contact</h3>
+
+<div class="order-btns">
+
+<a href="https://t.me/CyberMitzii" target="_blank" class="tg">
+<i class="fa-brands fa-telegram"></i>
+Open
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Telegram Channel</h3>
+
+<div class="order-btns">
+
+<a href="https://t.me/devmitziii" target="_blank" class="tg">
+<i class="fa-brands fa-telegram"></i>
+Join
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>WhatsApp Channel</h3>
+
+<div class="order-btns">
+
+<a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j" target="_blank" class="wa">
+<i class="fa-brands fa-whatsapp"></i>
+Join
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 MITZII STORE — CYBER DIGITAL SYSTEM
 </div>
 
 </div>
@@ -959,69 +975,95 @@ Rs. 1150
 
 <script>
 
-/* STARS */
+/* LOADING */
 
-const space=document.getElementById('space');
-
-for(let i=0;i<80;i++){
-
-let star=document.createElement('div');
-
-star.classList.add('star');
-
-star.style.left=Math.random()*window.innerWidth+'px';
-
-star.style.top=Math.random()*window.innerHeight+'px';
-
-star.style.animationDuration=(Math.random()*3+3)+'s';
-
-star.style.animationDelay=(Math.random()*5)+'s';
-
-space.appendChild(star);
-
-}
-
-/* LOADER */
+window.onload=function(){
 
 setTimeout(()=>{
 
-document.getElementById('loader').style.display='none';
+document.getElementById("loader").style.display="none";
 
-document.getElementById('login').style.display='flex';
+document.getElementById("authScreen").style.display="flex";
 
-},4500);
+},4000);
+
+}
+
+/* NOTIFY */
+
+function showNotify(text){
+
+const notify=document.getElementById("notify");
+
+notify.innerText=text;
+
+notify.classList.add("show");
+
+setTimeout(()=>{
+notify.classList.remove("show");
+},3000);
+
+}
 
 /* LOGIN */
 
 function loginUser(){
 
-document.getElementById('login').style.display='none';
+document.getElementById("authScreen").style.display="none";
+
+document.getElementById("mainSite").style.display="block";
 
 showNotify("Successfully Logged In");
 
 }
 
-function guestUser(){
+function signupUser(){
 
-document.getElementById('login').style.display='none';
+document.getElementById("authScreen").style.display="none";
 
-showNotify("Guest Mode Activated");
+document.getElementById("mainSite").style.display="block";
+
+showNotify("Account Created Successfully");
 
 }
 
-function showNotify(text){
+function guestLogin(){
 
-const notify=document.getElementById('notify');
+document.getElementById("authScreen").style.display="none";
 
-notify.innerHTML=text;
+document.getElementById("mainSite").style.display="block";
 
-notify.classList.add('show');
+showNotify("Guest Mode Enabled");
 
-setTimeout(()=>{
+}
 
-notify.classList.remove('show');
+/* MOBILE MENU */
 
-},3000);
+function toggleMenu(){
+
+document.getElementById("sidebar").classList.toggle("active");
+
+}
+
+/* QTY */
+
+function plus(btn){
+
+let input=btn.parentElement.querySelector("input");
+
+input.value=parseInt(input.value)+1;
+
+}
+
+function minus(btn){
+
+let input=btn.parentElement.querySelector("input");
+
+if(parseInt(input.value)>0){
+
+input.value=parseInt(input.value)-1;
+
+}
 
 }
 
