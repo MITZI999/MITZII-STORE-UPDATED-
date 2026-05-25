@@ -1,629 +1,658 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mitzii Store.</title>
-    <style>
-        /* Base Styling - Minimal Deep Dark Theme */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mitzii Store</title>
 
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        /* Smooth Elegant Loading Screen */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
-        }
+<style>
 
-        .loader-title {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 10px;
-            opacity: 0;
-            animation: fadeIn 1.2s forwards ease-in-out;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-        .loader-sub {
-            font-size: 14px;
-            color: #888888;
-            animation: fadeIn 1.2s forwards ease-in-out 0.4s;
-            opacity: 0;
-        }
+body{
+    background:#000;
+    color:#fff;
+    overflow-x:hidden;
+}
 
-        @keyframes fadeIn { to { opacity: 1; } }
+/* LOADING SCREEN */
 
-        /* Floating Space Particles Background Animation */
-        .space-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
+.loader{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:99999;
+    transition:1s;
+}
 
-        .star {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: floatSlow 12s infinite linear;
-            opacity: 0.3;
-        }
+.loader h1{
+    font-size:55px;
+    font-weight:700;
+    animation:pulse 1.5s infinite;
+}
 
-        @keyframes floatSlow {
-            0% { transform: translateY(105vh) translateX(0); }
-            100% { transform: translateY(-5vh) translateX(30px); }
-        }
+.loader p{
+    margin-top:10px;
+    color:#666;
+}
 
-        /* Navigation Layout matches Uploaded Image */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 40px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+@keyframes pulse{
+    0%{opacity:.4}
+    50%{opacity:1}
+    100%{opacity:.4}
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
 
-        .nav-links a {
-            color: #888888;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-        }
+/* BACKGROUND PARTICLES */
 
-        .nav-links a:hover { color: #ffffff; }
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+    overflow:hidden;
+}
 
-        /* Hero Landing Section */
-        .hero {
-            text-align: center;
-            padding: 100px 20px 60px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#1e90ff;
+    border-radius:50%;
+    animation:float 8s linear infinite;
+}
 
-        .hero h1 {
-            font-size: 56px;
-            font-weight: 700;
-            letter-spacing: -1.5px;
-            margin-bottom: 20px;
-        }
+@keyframes float{
+    from{
+        transform:translateY(0px);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-1000px);
+        opacity:0;
+    }
+}
 
-        .hero p {
-            font-size: 18px;
-            color: #888888;
-            line-height: 1.6;
-            margin-bottom: 35px;
-        }
+/* NAVBAR */
 
-        .hero-btn {
-            display: inline-block;
-            background: #0066cc;
-            color: white;
-            padding: 14px 32px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .hero-btn:hover { background: #0052a3; transform: scale(1.02); }
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.05);
+    z-index:999;
+}
 
-        /* Container & Layout Options */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+.logo{
+    font-size:32px;
+    font-weight:700;
+}
 
-        /* Minimal Interactive Auth Form Portal */
-        .auth-card {
-            background: #0a0a0a;
-            border: 1px solid #1c1c1e;
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 450px;
-            margin: 40px auto;
-            text-align: center;
-        }
+.menu-btn{
+    width:35px;
+    cursor:pointer;
+}
 
-        .auth-card h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
-        .auth-card p { color: #666; font-size: 14px; margin-bottom: 25px; }
+.menu-btn div{
+    height:3px;
+    background:#fff;
+    margin:7px 0;
+    border-radius:10px;
+    transition:.4s;
+}
 
-        .input-field {
-            width: 100%;
-            padding: 12px 16px;
-            background: #141416;
-            border: 1px solid #232326;
-            border-radius: 8px;
-            color: white;
-            font-size: 14px;
-            margin-bottom: 12px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .input-field:focus { border-color: #0066cc; }
+/* SIDE MENU */
 
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: opacity 0.3s;
-        }
-        .submit-btn:hover { opacity: 0.9; }
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:260px;
+    height:100vh;
+    background:#070707;
+    padding:90px 25px;
+    transition:.5s;
+    z-index:1000;
+    border-left:1px solid rgba(255,255,255,.08);
+}
 
-        .divider {
-            display: flex;
-            align-items: center;
-            color: #444;
-            font-size: 12px;
-            margin-bottom: 20px;
-        }
-        .divider::before, .divider::after {
-            content: "";
-            flex: 1;
-            background: #232326;
-            height: 1px;
-            margin: 0 10px;
-        }
+.sidebar.active{
+    right:0;
+}
 
-        .social-row {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
+.sidebar h2{
+    margin-bottom:30px;
+    font-size:28px;
+}
 
-        .social-btn {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #232326;
-            background: #141416;
-            color: white;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .social-btn:hover { background: #1c1c1f; }
+.sidebar a{
+    display:block;
+    text-decoration:none;
+    color:#fff;
+    margin-bottom:18px;
+    padding:16px;
+    border-radius:16px;
+    background:#111;
+    transition:.3s;
+    font-weight:500;
+}
 
-        /* Store Grid Architecture */
-        .section-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin: 60px 0 20px 0;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-        }
+.sidebar a:hover{
+    background:#1a1a1a;
+    transform:translateX(5px);
+}
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
+/* HERO */
 
-        .product-card {
-            background: #0a0a0a;
-            border: 1px solid #1c1c1e;
-            border-radius: 12px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: border-color 0.3s;
-        }
-        .product-card:hover { border-color: #2c2c2e; }
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 50px;
+}
 
-        .product-info h3 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
-        .product-info p { color: #666; font-size: 13px; line-height: 1.4; }
-        
-        .price-tag { font-size: 16px; font-weight: 500; color: #ffffff; margin-top: 15px; }
-        .discount-badge { color: #00ffcc; font-size: 12px; font-weight: 500; margin-top: 2px; display: none; }
+.hero-content h1{
+    font-size:70px;
+    font-weight:700;
+    margin-bottom:15px;
+}
 
-        /* Quantity Counter Mechanics */
-        .qty-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .qty-container label { font-size: 12px; color: #888; }
-        .qty-input {
-            width: 60px;
-            padding: 6px;
-            background: #141416;
-            border: 1px solid #232326;
-            color: white;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 13px;
-        }
+.hero-content p{
+    color:#888;
+    max-width:700px;
+    margin:auto;
+    font-size:22px;
+    line-height:1.6;
+}
 
-        /* Action Buttons */
-        .action-container {
-            display: flex;
-            gap: 8px;
-            margin-top: 20px;
-        }
+.main-buttons{
+    margin-top:40px;
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
 
-        .store-btn {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
-        .btn-white { background: #ffffff; color: #000000; }
-        .btn-dark { background: #1c1c1e; color: #ffffff; border: 1px solid #2c2c2e; }
-        .store-btn:hover { opacity: 0.85; }
+.btn{
+    padding:16px 40px;
+    border:none;
+    border-radius:18px;
+    background:#111;
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+    border:1px solid rgba(255,255,255,.05);
+}
 
-        /* Dynamic Cart Drawer Footer Overlay */
-        .cart-sticky {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #ffffff;
-            color: #000000;
-            padding: 15px 25px;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 500;
-        }
+.btn:hover{
+    transform:translateY(-4px);
+}
 
-        .cart-order-btn {
-            background: #000000;
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 12px;
-        }
+.btn.primary{
+    background:#fff;
+    color:#000;
+}
 
-        /* Profiles Elements */
-        .profile-container {
-            background: #0a0a0a;
-            border: 1px solid #1c1c1e;
-            border-radius: 16px;
-            padding: 50px 20px;
-            text-align: center;
-            margin-top: 80px;
-        }
+/* SECTION */
 
-        .profile-container h2 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
-        .profile-container p { color: #666; font-size: 14px; margin-bottom: 30px; }
-        
-        .channel-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 320px;
-            margin: 0 auto;
-        }
+.section{
+    padding:40px 20px 100px;
+    max-width:1200px;
+    margin:auto;
+}
 
-        /* Footer Architecture */
-        footer {
-            margin-top: 100px;
-            padding: 40px 20px;
-            border-top: 1px solid #1c1c1e;
-            text-align: center;
-            font-size: 13px;
-            color: #444444;
-            line-height: 1.8;
-        }
-        footer span { color: #888888; }
-        .team-meta { color: #555555; margin-top: 4px; }
-    </style>
+.section-title{
+    font-size:45px;
+    margin-bottom:40px;
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#050505;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:30px;
+    padding:30px;
+    transition:.4s;
+    backdrop-filter:blur(10px);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(255,255,255,.15);
+}
+
+.card h3{
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+.card p{
+    color:#777;
+    margin-bottom:25px;
+    line-height:1.6;
+}
+
+.price{
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.actions{
+    display:flex;
+    gap:15px;
+}
+
+.action-btn{
+    flex:1;
+    text-align:center;
+    padding:15px;
+    border-radius:15px;
+    background:#111;
+    text-decoration:none;
+    color:#fff;
+    font-weight:600;
+    transition:.3s;
+}
+
+.action-btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    padding:40px 20px;
+    color:#666;
+    border-top:1px solid rgba(255,255,255,.05);
+    margin-top:100px;
+}
+
+@media(max-width:768px){
+
+.hero-content h1{
+    font-size:52px;
+}
+
+.hero-content p{
+    font-size:18px;
+}
+
+.section-title{
+    font-size:35px;
+}
+
+.card h3{
+    font-size:28px;
+}
+
+}
+
+</style>
 </head>
 <body>
 
-    <div id="loader">
-        <div class="loader-title">Mitzii Store.</div>
-        <div class="loader-sub">Premium Automation & Infrastructure Solutions</div>
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+    <h1>Mitzii.</h1>
+    <p>Loading Store...</p>
+</div>
+
+<!-- STARS -->
+
+<div class="stars" id="stars"></div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">Mitzii.</div>
+
+    <div class="menu-btn" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 
-    <div class="space-bg" id="space-canvas"></div>
+</nav>
 
-    <nav>
-        <div class="logo">Mitzii.</div>
-        <div class="nav-links">
-            <a href="#vpn-section">VPN</a>
-            <a href="#bots-section">Bots</a>
-            <a href="#panels-section">Panels</a>
-            <a href="#dev-section">Developer</a>
-        </div>
-    </nav>
+<!-- SIDEBAR -->
 
-    <div class="hero">
+<div class="sidebar" id="sidebar">
+
+    <h2>MENU</h2>
+
+    <a href="#bots">BUG BOTS</a>
+    <a href="#vpn">VPN</a>
+    <a href="#panels">PANELS</a>
+    <a href="#developer">DEVELOPER</a>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
         <h1>Mitzii Store.</h1>
-        <p>Premium VPN, Automation Bots, and Infrastructure Panels.</p>
-        <a href="#bots-section" class="hero-btn">Browse Collection</a>
-    </div>
 
-    <div class="container">
+        <p>
+            Premium VPN, Automation Bots, and Infrastructure Panels.
+        </p>
 
-        <div class="auth-card">
-            <h2>Sign in to Portal</h2>
-            <p>Access your accounts and parameters seamlessly</p>
-            <input type="text" class="input-field" placeholder="Username / Email">
-            <input type="password" class="input-field" placeholder="Password">
-            <button class="submit-btn" onclick="alert('Access verification connection simulated.')">Continue</button>
-            <div class="divider">or use secure channels</div>
-            <div class="social-row">
-                <button class="social-btn" onclick="alert('Google Auth Initiated')">Gmail</button>
-                <button class="social-btn" onclick="alert('Apple Auth Initiated')">Apple ID</button>
-                <button class="social-btn" onclick="alert('Facebook Auth Initiated')">Facebook</button>
-            </div>
-        </div>
+        <div class="main-buttons">
 
-        <div class="section-title" id="bots-section">Automation Bug Bots (12.5% Multi-Month Discount)</div>
-        <div class="product-grid">
-            <div class="product-card" data-price="2300" data-isbot="true">
-                <div class="product-info">
-                    <h3>Tredic Bug Bot</h3>
-                    <p>High capacity operational automation system.</p>
-                    <div class="price-tag">Rs. 2,300.00 / mo</div>
-                    <div class="discount-badge">12.5% Multi-month discount applied</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Months:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white" target="_blank">WhatsApp</a>
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
+            <a href="https://wa.me/" class="btn primary">
+                WhatsApp
+            </a>
 
-            <div class="product-card" data-price="2400" data-isbot="true">
-                <div class="product-info">
-                    <h3>Ovalium Bug Bot</h3>
-                    <p>Enhanced architectural calculation runtime interface.</p>
-                    <div class="price-tag">Rs. 2,400.00 / mo</div>
-                    <div class="discount-badge">12.5% Multi-month discount applied</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Months:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
+            <a href="https://t.me/" class="btn">
+                Telegram
+            </a>
 
-            <div class="product-card" data-price="2600" data-isbot="true">
-                <div class="product-info">
-                    <h3>Aphohis Bug Bot</h3>
-                    <p>Ultimate speed metrics framework deployer.</p>
-                    <div class="price-tag">Rs. 2,600.00 / mo</div>
-                    <div class="discount-badge">12.5% Multi-month discount applied</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Months:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title" id="panels-section">Infrastructure Panels</div>
-        <div class="product-grid">
-            <div class="product-card" data-price="500" data-isbot="false">
-                <div class="product-info">
-                    <h3>Unlimited Panel</h3>
-                    <p>Pterodactyl admin configuration layer with full node scaling.</p>
-                    <div class="price-tag">Rs. 500.00</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Quantity:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://wa.me/message/X45CUX4LO3AQD1" class="store-btn btn-white" target="_blank">WhatsApp</a>
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-price="1600" data-isbot="false">
-                <div class="product-info">
-                    <h3>Admin Panel</h3>
-                    <p>Advanced cluster deployment tools system settings access.</p>
-                    <div class="price-tag">Rs. 1,600.00</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Quantity:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title" id="vpn-section">Premium VPN Allocation</div>
-        <div class="product-grid">
-            <div class="product-card" data-price="300" data-isbot="false">
-                <div class="product-info">
-                    <h3>100GB VPN Access</h3>
-                    <p>Secure routing networks private data bandwidth allocation.</p>
-                    <div class="price-tag">Rs. 300.00</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Quantity:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-price="1150" data-isbot="false">
-                <div class="product-info">
-                    <h3>Unlimited VPN Pipeline</h3>
-                    <p>Maximum speed unthrottled global secure networking node.</p>
-                    <div class="price-tag">Rs. 1,150.00</div>
-                </div>
-                <div>
-                    <div class="qty-container">
-                        <label>Quantity:</label>
-                        <input type="number" class="qty-input" value="0" min="0" oninput="updateCart()">
-                    </div>
-                    <div class="action-container">
-                        <a href="https://t.me/DevMiztii" class="store-btn btn-dark" target="_blank">Telegram</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-container" id="dev-section">
-            <h2>The Developer.</h2>
-            <p>Dev Mitzii — Official Creator & Lead Architect</p>
-            <div class="channel-links">
-                <a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j" class="store-btn btn-white" target="_blank">WhatsApp Channel</a>
-                <a href="https://t.me/DevMitzii_lk" class="store-btn btn-dark" target="_blank">Telegram Channel Main</a>
-                <a href="https://t.me/DevMitziLK" class="store-btn btn-dark" target="_blank">Telegram Secondary Channel</a>
-            </div>
         </div>
 
     </div>
 
-    <div class="cart-sticky" id="cart-drawer" style="display: none;">
-        <div>Total Balance: <span id="cart-total-view">Rs. 0.00</span></div>
-        <a href="https://t.me/DevMiztii" class="cart-order-btn" target="_blank">Order Collection</a>
+</section>
+
+<!-- BUG BOTS -->
+
+<section class="section" id="bots">
+
+    <h2 class="section-title">Bug Bots</h2>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h3>Tredic Bot</h3>
+
+            <p>
+                High capacity operational automation system.
+            </p>
+
+            <div class="price">Rs. 2300</div>
+
+            <div class="actions">
+
+                <a href="https://wa.me/" class="action-btn">
+                    WhatsApp
+                </a>
+
+                <a href="https://t.me/" class="action-btn">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Ovalium Bot</h3>
+
+            <p>
+                Advanced automation runtime interface.
+            </p>
+
+            <div class="price">Rs. 2400</div>
+
+            <div class="actions">
+
+                <a href="https://wa.me/" class="action-btn">
+                    WhatsApp
+                </a>
+
+                <a href="https://t.me/" class="action-btn">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <footer>
-        <p>&copy; 2026 Mitzii Store. All Rights Reserved.</p>
-        <div>Developer: <span>&copy;CYBER MITZII</span></div>
-        <div class="team-meta">Operations Team: <span>death line team</span></div>
-    </footer>
+</section>
 
-    <script>
-        // Smooth Dismiss Loading Transitions
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 800);
-            }, 1000);
-        });
+<!-- VPN -->
 
-        // Space Cluster Generator for Background Particles Layout
-        const canvasContainer = document.getElementById('space-canvas');
-        const count = 45;
-        for (let i = 0; i < count; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            const size = Math.random() * 3;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.animationDuration = `${Math.random() * 8 + 8}s`;
-            star.style.animationDelay = `${Math.random() * -10}s`;
-            canvasContainer.appendChild(star);
-        }
+<section class="section" id="vpn">
 
-        // Global Processing Pipeline for Quantity Multipliers & Discounts
-        function updateCart() {
-            let runningTotal = 0;
-            const cards = document.querySelectorAll('.product-card');
-            
-            cards.forEach(card => {
-                const basePrice = parseFloat(card.getAttribute('data-price'));
-                const isBot = card.getAttribute('data-isbot') === 'true';
-                const qtyInput = card.querySelector('.qty-input');
-                const qty = parseInt(qtyInput.value) || 0;
+    <h2 class="section-title">Premium VPN</h2>
 
-                const badge = card.querySelector('.discount-badge');
+    <div class="grid">
 
-                if (qty > 0) {
-                    let productTotal = basePrice * qty;
-                    
-                    // 12.5% Discount Equation rule exclusively targeting Bug Bots
-                    if (isBot) {
-                        productTotal = productTotal * (1 - 0.125);
-                        if (badge) badge.style.display = 'block';
-                    }
-                    runningTotal += productTotal;
-                } else {
-                    if (badge) badge.style.display = 'none';
-                }
-            });
+        <div class="card">
 
-            const drawer = document.getElementById('cart-drawer');
-            const totalView = document.getElementById('cart-total-view');
+            <h3>100GB VPN</h3>
 
-            if (runningTotal > 0) {
-                totalView.innerText = `Rs. ${runningTotal.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-                drawer.style.display = 'flex';
-            } else {
-                drawer.style.display = 'none';
-            }
-        }
-    </script>
+            <p>
+                Secure routing private network bandwidth.
+            </p>
+
+            <div class="price">Rs. 300</div>
+
+            <div class="actions">
+
+                <a href="https://wa.me/" class="action-btn">
+                    WhatsApp
+                </a>
+
+                <a href="https://t.me/" class="action-btn">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Unlimited VPN</h3>
+
+            <p>
+                Maximum speed global secure networking.
+            </p>
+
+            <div class="price">Rs. 1150</div>
+
+            <div class="actions">
+
+                <a href="https://wa.me/" class="action-btn">
+                    WhatsApp
+                </a>
+
+                <a href="https://t.me/" class="action-btn">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PANELS -->
+
+<section class="section" id="panels">
+
+    <h2 class="section-title">Infrastructure Panels</h2>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <h3>Unlimited Panel</h3>
+
+            <p>
+                Full admin scalable deployment system.
+            </p>
+
+            <div class="price">Rs. 500</div>
+
+            <div class="actions">
+
+                <a href="https://wa.me/" class="action-btn">
+                    WhatsApp
+                </a>
+
+                <a href="https://t.me/" class="action-btn">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Admin Panel</h3>
+
+            <p>
+                Advanced cluster deployment configuration access.
+            </p>
+
+            <div class="price">Rs. 1600</div>
+
+            <div class="actions">
+
+                <a href="https://wa.me/" class="action-btn">
+                    WhatsApp
+                </a>
+
+                <a href="https://t.me/" class="action-btn">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- DEVELOPER -->
+
+<section class="section" id="developer">
+
+    <h2 class="section-title">The Developer.</h2>
+
+    <div class="card">
+
+        <h3>CYBER MITZII</h3>
+
+        <p>
+            Official Creator & Lead Architect
+        </p>
+
+        <div class="actions">
+
+            <a href="https://wa.me/" class="action-btn">
+                WhatsApp Channel
+            </a>
+
+            <a href="https://t.me/" class="action-btn">
+                Telegram Channel
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    © 2026 Mitzii Store. All Rights Reserved.
+
+</div>
+
+<script>
+
+/* LOADING */
+
+window.addEventListener("load", ()=>{
+
+    setTimeout(()=>{
+        document.getElementById("loader").classList.add("hide");
+    },1500)
+
+})
+
+/* MENU */
+
+function toggleMenu(){
+
+    document.getElementById("sidebar")
+    .classList.toggle("active")
+
+}
+
+/* STARS */
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<150;i++){
+
+    const star = document.createElement("div");
+
+    star.classList.add("star");
+
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+
+    star.style.animationDuration =
+    (Math.random()*10 + 5) + "s";
+
+    stars.appendChild(star);
+
+}
+
+</script>
+
 </body>
 </html>
