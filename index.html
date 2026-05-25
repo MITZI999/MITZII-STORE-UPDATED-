@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MITZII STORE | Official</title>
+    <style>
+        /* Global Styles with Cyber/Tech Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #080810;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Loading Screen Animation */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #05050b;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }
+
+        .loader-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ffcc;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ffcc;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid transparent;
+            border-top-color: #00ffcc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        /* Floating Cyber Particles Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at center, #101026 0%, #05050b 100%);
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 204, 0.2);
+            border-radius: 50%;
+            animation: floatUp 8s infinite ease-in-out;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) translateX(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-5vh) translateX(50px) scale(1.2); opacity: 0; }
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(8, 8, 16, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #00ffcc;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: #00ffcc; }
+
+        /* Main Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Authorization Box */
+        .auth-section {
+            background: rgba(15, 15, 30, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .auth-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .auth-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.2s;
+        }
+        .auth-btn:hover { transform: translateY(-2px); }
+        .google-btn { background: #db4437; color: white; }
+        .apple-btn { background: #ffffff; color: black; }
+        .fb-btn { background: #1877f2; color: white; }
+
+        /* Interactive Dynamic Calculator Wrapper */
+        .calculator-section {
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid #00ffcc;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffcc;
+            font-size: 14px;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a14;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .price-display {
+            background: #05050b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #00ffcc;
+        }
+
+        .original-price { text-decoration: line-through; color: #888; font-size: 14px; }
+        .discount-price { color: #00ffcc; font-size: 24px; font-weight: bold; margin-top: 5px; }
+
+        /* General Tech Card Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 5px;
+        }
+
+        .card {
+            background: rgba(15, 15, 30, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #00ffcc;
+            transform: translateY(-5px);
+        }
+
+        .card h3 { color: #00ffcc; margin-bottom: 10px; }
+        .price { font-size: 20px; font-weight: bold; margin: 15px 0; }
+
+        /* Standardized Action Buttons */
+        .btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        .btn-wa { background-color: #25D366; color: white; }
+        .btn-tg { background-color: #0088cc; color: white; }
+
+        /* Developer Profile Box */
+        .developer-section {
+            text-align: center;
+            background: linear-gradient(135deg, #0f0f20 0%, #05050b 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .dev-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+        .dev-subtitle { color: #888; margin-bottom: 25px; }
+
+        /* Footer Layout */
+        footer {
+            background: #040408;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+            color: #666;
+            margin-top: 60px;
+        }
+        footer p { margin: 5px 0; }
+        .team-tag { color: #ff3366; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-text">WELCOME TO MITZII STORE</div>
+        <div class="spinner"></div>
+    </div>
+
+    <div class="background-animation" id="bg-particles"></div>
+
+    <nav>
+        <div class="logo">MITZII.</div>
+        <div class="nav-links">
+            <a href="#">VPN</a>
+            <a href="#">Bots</a>
+            <a href="#">Panels</a>
+            <a href="#">Developer</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="auth-section">
+            <h2>SECURE PORTAL LOGIN</h2>
+            <p style="color: #888; font-size:14px; margin-top:5px;">Select your authenticated access method</p>
+            <div class="auth-buttons">
+                <button class="auth-btn google-btn">Continue with Gmail</button>
+                <button class="auth-btn apple-btn">Continue with Apple</button>
+                <button class="auth-btn fb-btn">Continue with Facebook</button>
+            </div>
+        </div>
+
+        <div class="calculator-section">
+            <h2>BUG BOT PURCHASE GATEWAY</h2>
+            <p style="color:#888; font-size: 14px; margin-bottom: 20px;">Get a 12.5% custom discount when purchasing multiple months</p>
+            
+            <div class="form-group">
+                <label for="bot-select">Select Bug Bot Engine Type:</label>
+                <select id="bot-select" onchange="calculatePrice()">
+                    <option value="2300">Tredic Bug Bot - Rs. 2,300</option>
+                    <option value="2400">Ovalium Bug Bot - Rs. 2,400</option>
+                    <option value="2600">Aphohis Bug Bot - Rs. 2,600</option>
+                    <option value="2200">Applow Bug Bot - Rs. 2,200</option>
+                    <option value="2300">Otax Bug Bot - Rs. 2,300</option>
+                    <option value="2300">Xinso Bug Bot - Rs. 2,300</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="months-input">Duration Length (Specify in Months):</label>
+                <input type="number" id="months-input" value="1" min="1" oninput="calculatePrice()">
+            </div>
+
+            <div class="price-display">
+                <div class="original-price" id="old-price-view">Original Price: Rs. 0.00</div>
+                <div class="discount-price" id="new-price-view">Calculated Price: Rs. 0.00</div>
+                <p style="font-size:11px; color:#666; margin-top:10px;">*12.5% discount automatically calculated for active durations.</p>
+            </div>
+            
+            <div style="margin-top: 15px; display:flex; gap:10px;">
+                <a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn btn-wa" target="_blank">Order via WhatsApp</a>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Order via Telegram</a>
+            </div>
+        </div>
+
+        <h2 style="margin: 30px 0 15px; border-left: 3px solid #00ffcc; padding-left: 10px;">PTERODACTYL ECOSYSTEM</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>UNLIMITED PANEL</h3>
+                <p style="font-size:12px; color:#888;">CPU / Memory Unlimited Architecture</p>
+                <div class="price">Rs. 500</div>
+                <a href="https://wa.me/message/X45CUX4LO3AQD1" class="btn btn-wa" target="_blank">WhatsApp Inbox</a>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Telegram Inbox</a>
+            </div>
+            <div class="card">
+                <h3>ADMIN PANEL</h3>
+                <p style="font-size:12px; color:#888;">Complete Node Support Infrastructure</p>
+                <div class="price">Rs. 1,600</div>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Inquire Access</a>
+            </div>
+            <div class="card">
+                <h3>OWNER PANEL</h3>
+                <p style="font-size:12px; color:#888;">Maximum Tier Control and Configurations</p>
+                <div class="price">Rs. 3,500</div>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Inquire Access</a>
+            </div>
+        </div>
+
+        <h2 style="margin: 40px 0 15px; border-left: 3px solid #00ffcc; padding-left: 10px;">PREMIUM VPN NETWORKING</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>100GB DATA LAYER</h3>
+                <div class="price">Rs. 300.00</div>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Purchase Access</a>
+            </div>
+            <div class="card">
+                <h3>500GB DATA LAYER</h3>
+                <div class="price">Rs. 800.00</div>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Purchase Access</a>
+            </div>
+            <div class="card">
+                <h3>UNLIMITED PIPELINE</h3>
+                <div class="price">Rs. 1,150.00</div>
+                <a href="https://t.me/DevMiztii" class="btn btn-tg" target="_blank">Purchase Access</a>
+            </div>
+        </div>
+
+        <div class="developer-section">
+            <div class="dev-title">The Developer.</div>
+            <div class="dev-subtitle">Dev Mitzii | Official Creator & Lead Architect</div>
+            <div style="max-width:400px; margin: 0 auto; display:flex; flex-direction:column; gap:10px;">
+                <a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j" class="btn" style="background:#fff; color:#000;" target="_blank">WhatsApp Channel</a>
+                <a href="https://t.me/DevMitzii_lk" class="btn btn-tg" target="_blank">Telegram Main Channel</a>
+                <a href="https://t.me/DevMitziLK" class="btn btn-tg" style="background:#006699;" target="_blank">Telegram Secondary Channel</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Mitzii Store. All Rights Reserved.</p>
+        <p>Developer: <span style="color:#00ffcc; font-weight:bold;">&copy;CYBER MITZII</span> | Operations Team: <span class="team-tag">death line team</span></p>
+    </footer>
+
+    <script>
+        // Automatic Dynamic Matrix Loading Sequence Dismissal
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 1000);
+            }, 1200);
+        });
+
+        // Procedural Floating Particle Background Matrix Initialization
+        const bgContainer = document.getElementById('bg-particles');
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random sizing and distribution vectors
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            
+            // Randomized structural animation triggers
+            particle.style.animationDuration = `${Math.random() * 6 + 6}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            bgContainer.appendChild(particle);
+        }
+
+        // Exact Multi-Month Automated 12.5% Discount Equation Execution
+        function calculatePrice() {
+            const basePrice = parseFloat(document.getElementById('bot-select').value);
+            const months = parseInt(document.getElementById('months-input').value) || 1;
+            
+            if(months < 1) return;
+
+            const totalBase = basePrice * months;
+            // 12.5% reduction formula deduction applied
+            const discountedTotal = totalBase * (1 - 0.125);
+
+            document.getElementById('old-price-view').innerText = `Original Price: Rs. ${totalBase.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            document.getElementById('new-price-view').innerText = `Calculated Price: Rs. ${discountedTotal.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        }
+
+        // Initialize Calculation Pipeline
+        calculatePrice();
+    </script>
+</body>
+</html>
