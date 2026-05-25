@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>MITZII STORE</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
@@ -13,7 +16,8 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
@@ -22,562 +26,554 @@ color:white;
 overflow-x:hidden;
 }
 
-/* ===== BACKGROUND ===== */
-
-.space{
-position:fixed;
-width:100%;
-height:100%;
-overflow:hidden;
-z-index:-2;
-background:
-radial-gradient(circle at top,#0b1d3a 0%,#02040a 60%);
-}
+/* BACKGROUND */
 
 .stars{
-position:absolute;
-width:100%;
-height:100%;
-background:url("https://i.imgur.com/YKY28eT.png");
-opacity:.3;
-animation:moveStars 100s linear infinite;
-}
-
-@keyframes moveStars{
-from{transform:translateY(0);}
-to{transform:translateY(-2000px);}
-}
-
-/* METEORS */
-
-.meteor{
-position:absolute;
-width:2px;
-height:120px;
-background:linear-gradient(white,transparent);
-transform:rotate(45deg);
-opacity:.8;
-animation:meteor 5s linear infinite;
-}
-
-@keyframes meteor{
-0%{
-transform:translateX(0) translateY(0) rotate(45deg);
-opacity:0;
-}
-10%{opacity:1;}
-100%{
-transform:translateX(-1000px) translateY(1000px) rotate(45deg);
-opacity:0;
-}
-}
-
-.meteor:nth-child(1){
-top:5%;
-left:90%;
-animation-delay:0s;
-}
-
-.meteor:nth-child(2){
-top:20%;
-left:70%;
-animation-delay:2s;
-}
-
-.meteor:nth-child(3){
-top:0%;
-left:50%;
-animation-delay:4s;
-}
-
-.meteor:nth-child(4){
-top:10%;
-left:30%;
-animation-delay:6s;
-}
-
-/* ===== LOADING ===== */
-
-#loadingScreen{
 position:fixed;
 width:100%;
 height:100%;
-background:#02040a;
+top:0;
+left:0;
+z-index:-5;
+background:
+radial-gradient(circle at center,#0d1f44 0%,#02040a 60%);
+overflow:hidden;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:#4da3ff;
+border-radius:50%;
+animation:twinkle 4s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:.1}
+50%{opacity:1}
+100%{opacity:.1}
+}
+
+.shooting-star{
+position:absolute;
+height:2px;
+background:linear-gradient(90deg,#fff,#2f8fff,transparent);
+border-radius:50%;
+animation:shoot 6s linear infinite;
+}
+
+@keyframes shoot{
+0%{
+transform:translateX(-200px) translateY(0);
+opacity:1;
+}
+100%{
+transform:translateX(130vw) translateY(300px);
+opacity:0;
+}
+}
+
+/* LOADING */
+
+#loading-screen{
+position:fixed;
+width:100%;
+height:100vh;
+background:#010308;
+z-index:999999;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-z-index:999999;
+overflow:hidden;
 }
 
-.loadingTitle{
-font-size:65px;
-font-weight:bold;
-letter-spacing:5px;
-margin-bottom:25px;
+.loading-bg{
+position:absolute;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at center,#0b1b3d 0%,#010308 70%);
+animation:pulse 4s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.05)}
+100%{transform:scale(1)}
+}
+
+.loading-title{
+font-size:58px;
+font-weight:800;
+letter-spacing:3px;
+z-index:2;
 text-transform:uppercase;
-background:linear-gradient(90deg,#fff,#1b67ff,#fff);
-background-size:300%;
+background:linear-gradient(to right,#ffffff,#217bff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-animation:glow 4s linear infinite;
+animation:glow 2s infinite alternate;
 }
 
 @keyframes glow{
-0%{background-position:0%;}
-100%{background-position:300%;}
+0%{
+filter:drop-shadow(0 0 5px #1d7fff);
+}
+100%{
+filter:drop-shadow(0 0 25px #1d7fff);
+}
 }
 
-.loadingBar{
+.loading-sub{
+margin-top:10px;
+color:#8ea8d8;
+letter-spacing:4px;
+z-index:2;
+}
+
+.loader-bar{
+margin-top:40px;
 width:320px;
-height:18px;
+height:10px;
 border-radius:20px;
-border:2px solid #0d4eff;
+border:1px solid #234a85;
 overflow:hidden;
-background:#111;
-box-shadow:0 0 20px #0d4eff;
+z-index:2;
+background:#09111d;
 }
 
-.loadingFill{
+.loader-fill{
 height:100%;
 width:0%;
-background:linear-gradient(90deg,#fff,#0d4eff,#fff);
-animation:load 4s linear forwards;
+background:linear-gradient(90deg,#ffffff,#0f6fff,#4ca6ff);
+animation:load 5s forwards;
+border-radius:20px;
 }
 
 @keyframes load{
-0%{width:0%;}
-100%{width:100%;}
+0%{width:0%}
+100%{width:100%}
 }
 
-.loadingText{
-margin-top:20px;
-font-size:14px;
-letter-spacing:3px;
-color:#ccc;
-}
+/* NAVBAR */
 
-/* ===== MAIN ===== */
-
-.main{
-display:none;
-}
-
-/* ===== TOPBAR ===== */
-
-.topbar{
+.navbar{
 position:fixed;
 top:0;
-left:260px;
-right:0;
-height:75px;
-background:rgba(0,0,0,.4);
-backdrop-filter:blur(10px);
-border-bottom:1px solid rgba(255,255,255,.08);
+left:0;
+width:100%;
+height:80px;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(15px);
 display:flex;
 align-items:center;
-padding:0 30px;
-z-index:1000;
+justify-content:space-between;
+padding:0 25px;
+border-bottom:1px solid rgba(255,255,255,.06);
+z-index:999;
 }
 
-.topbar nav{
+.logo{
+font-size:38px;
+font-weight:800;
+}
+
+.logo span{
+color:#2a82ff;
+}
+
+.nav-links{
 display:flex;
 gap:35px;
 }
 
-.topbar nav a{
-color:#d8d8d8;
+.nav-links a{
 text-decoration:none;
-font-size:15px;
+color:#cfcfcf;
+font-weight:500;
 transition:.3s;
 }
 
-.topbar nav a:hover{
-color:#1b67ff;
+.nav-links a:hover{
+color:#2a82ff;
 }
 
-/* ===== SIDEBAR ===== */
+.menu-btn{
+font-size:26px;
+cursor:pointer;
+padding:10px;
+border-radius:10px;
+transition:.3s;
+}
+
+.menu-btn:hover{
+background:#111d33;
+}
+
+/* SIDEBAR */
 
 .sidebar{
 position:fixed;
+left:-320px;
 top:0;
-left:0;
-width:260px;
+width:300px;
 height:100%;
-background:rgba(0,0,0,.45);
-backdrop-filter:blur(10px);
-border-right:1px solid rgba(255,255,255,.08);
+background:rgba(2,6,18,.95);
+backdrop-filter:blur(20px);
 padding:25px;
+transition:.4s;
+z-index:9999;
+border-right:1px solid rgba(255,255,255,.06);
 overflow-y:auto;
 }
 
-.logo{
-font-size:48px;
-font-weight:bold;
-margin-bottom:40px;
+.sidebar.active{
+left:0;
 }
 
-.logo span{
-color:#1b67ff;
+.sidebar h2{
+font-size:35px;
+margin-bottom:30px;
 }
 
-.menuTitle{
-font-size:13px;
-letter-spacing:2px;
-color:#888;
-margin-bottom:15px;
-}
-
-.menu a{
+.sidebar a{
 display:flex;
 align-items:center;
 gap:12px;
 padding:15px;
-border-radius:12px;
+margin:8px 0;
+background:#07101f;
+border-radius:15px;
 color:white;
 text-decoration:none;
-margin-bottom:10px;
 transition:.3s;
-background:rgba(255,255,255,.03);
 }
 
-.menu a:hover{
-background:#0d4eff;
+.sidebar a:hover{
+background:#0d1d38;
 transform:translateX(5px);
 }
 
-.community{
-margin-top:30px;
-}
-
-.contactBox{
-margin-top:35px;
-padding:20px;
-border-radius:18px;
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.08);
-}
-
-.contactBox h3{
-margin-bottom:10px;
-}
-
-.contactBox button{
-width:100%;
-padding:13px;
-border:none;
-border-radius:12px;
-background:#0d4eff;
-color:white;
-font-weight:bold;
+.close-btn{
+position:absolute;
+right:20px;
+top:15px;
+font-size:30px;
 cursor:pointer;
 }
 
-/* ===== CONTENT ===== */
-
-.content{
-margin-left:260px;
-padding:120px 30px 50px;
-}
+/* HERO */
 
 .hero{
-padding:35px;
-border-radius:25px;
-background:
-linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.7)),
-url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1200");
-background-size:cover;
-border:1px solid rgba(255,255,255,.08);
-box-shadow:0 0 30px rgba(0,80,255,.2);
-margin-bottom:30px;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+position:relative;
+}
+
+.hero-content{
+max-width:850px;
+z-index:5;
 }
 
 .hero h1{
-font-size:50px;
-margin-bottom:10px;
+font-size:85px;
+font-weight:800;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+.hero h1 span{
+color:#2a82ff;
 }
 
 .hero p{
-color:#ccc;
-max-width:700px;
-line-height:1.7;
+font-size:24px;
+color:#c5c5c5;
+line-height:1.8;
 }
 
-.sectionTitle{
-font-size:32px;
-margin:40px 0 25px;
+.hero-buttons{
+margin-top:40px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
 }
 
-.grid{
+.btn{
+padding:16px 35px;
+border:none;
+border-radius:18px;
+font-size:17px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+text-decoration:none;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.telegram-btn{
+background:#0088cc;
+color:white;
+}
+
+.whatsapp-btn{
+background:#25d366;
+color:white;
+}
+
+.btn:hover{
+transform:translateY(-5px) scale(1.03);
+}
+
+/* SECTION */
+
+.section{
+padding:120px 7%;
+}
+
+.section-title{
+font-size:42px;
+margin-bottom:50px;
+font-weight:800;
+}
+
+.cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
+gap:25px;
 }
 
 .card{
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.08);
-border-radius:22px;
-padding:25px;
-transition:.4s;
-backdrop-filter:blur(12px);
+background:rgba(8,14,28,.85);
+border:1px solid rgba(255,255,255,.05);
+padding:30px;
+border-radius:25px;
+transition:.3s;
+backdrop-filter:blur(10px);
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:'';
+position:absolute;
+top:-100px;
+left:-100px;
+width:200px;
+height:200px;
+background:rgba(0,132,255,.1);
+border-radius:50%;
 }
 
 .card:hover{
 transform:translateY(-10px);
-box-shadow:0 0 30px rgba(0,80,255,.25);
+border-color:#216dff;
 }
 
-.card h2{
-margin-bottom:12px;
-font-size:28px;
-}
-
-.card p{
-color:#aaa;
-line-height:1.7;
-margin-bottom:20px;
+.card h3{
+font-size:30px;
+margin-bottom:15px;
 }
 
 .price{
-font-size:32px;
-font-weight:bold;
-margin-bottom:18px;
-color:#1b67ff;
+font-size:35px;
+font-weight:800;
+margin:15px 0;
+color:#2a82ff;
 }
 
-.btns{
+.card p{
+color:#c7c7c7;
+line-height:1.7;
+}
+
+/* BUTTONS */
+
+.order-buttons{
 display:flex;
 gap:12px;
+margin-top:20px;
+flex-wrap:wrap;
 }
 
-.btn{
+.order-buttons a{
 flex:1;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#0d4eff;
-color:white;
-font-weight:bold;
-cursor:pointer;
-text-decoration:none;
 text-align:center;
+padding:14px;
+border-radius:14px;
+font-weight:600;
+text-decoration:none;
+color:white;
 transition:.3s;
 }
 
-.btn:hover{
-background:#1f7bff;
+.tg{
+background:#0088cc;
+}
+
+.wa{
+background:#25d366;
+}
+
+.order-buttons a:hover{
 transform:scale(1.03);
 }
 
-/* ===== SERVICES ===== */
+/* FOOTER */
 
-.services{
-background:rgba(255,255,255,.03);
-padding:35px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,.08);
-line-height:2;
-font-size:18px;
+.footer{
+padding:60px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.08);
+background:#03060f;
 }
 
-/* ===== RESPONSIVE ===== */
+.footer h2{
+font-size:35px;
+margin-bottom:15px;
+}
+
+.footer-links{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+.footer-links a{
+padding:15px 30px;
+border-radius:15px;
+text-decoration:none;
+color:white;
+font-weight:600;
+}
+
+/* MOBILE */
 
 @media(max-width:900px){
 
-.sidebar{
-width:100%;
-height:auto;
-position:relative;
+.hero h1{
+font-size:55px;
 }
 
-.topbar{
-left:0;
+.nav-links{
+display:none;
 }
 
-.content{
-margin-left:0;
-padding-top:160px;
+.section-title{
+font-size:35px;
 }
 
 }
 
 </style>
 </head>
+
 <body>
 
 <!-- BACKGROUND -->
-<div class="space">
-<div class="stars"></div>
-<div class="meteor"></div>
-<div class="meteor"></div>
-<div class="meteor"></div>
-<div class="meteor"></div>
-</div>
+
+<div class="stars" id="stars"></div>
 
 <!-- LOADING -->
-<div id="loadingScreen">
 
-<div class="loadingTitle">
-MITZII STORE
+<div id="loading-screen">
+
+<div class="loading-bg"></div>
+
+<h1 class="loading-title">MITZII STORE</h1>
+
+<p class="loading-sub">CYBER DIGITAL SYSTEM</p>
+
+<div class="loader-bar">
+<div class="loader-fill"></div>
 </div>
 
-<div class="loadingBar">
-<div class="loadingFill"></div>
 </div>
-
-<div class="loadingText">
-CYBER SYSTEM LOADING...
-</div>
-
-</div>
-
-<!-- MAIN -->
-<div class="main" id="mainSite">
 
 <!-- SIDEBAR -->
-<div class="sidebar">
 
-<div class="logo">
-Mitzii<span>.</span>
+<div class="sidebar" id="sidebar">
+
+<div class="close-btn" onclick="toggleMenu()">
+<i class="fa-solid fa-xmark"></i>
 </div>
 
-<div class="menuTitle">MENU</div>
+<h2>Menu</h2>
 
-<div class="menu">
+<a href="#vpn"><i class="fa-solid fa-shield"></i> VPN</a>
 
-<a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+<a href="#bots"><i class="fa-solid fa-robot"></i> Bug Bots</a>
 
-<a href="#"><i class="fa-solid fa-shield"></i> VPN Services</a>
+<a href="#panels"><i class="fa-solid fa-server"></i> Panels</a>
 
-<a href="#"><i class="fa-solid fa-bug"></i> Bug Bots</a>
+<a href="#developer"><i class="fa-solid fa-user-secret"></i> Developer</a>
 
-<a href="#"><i class="fa-solid fa-server"></i> Panels</a>
-
-<a href="#"><i class="fa-solid fa-code"></i> Developer</a>
-
-<a href="#"><i class="fa-solid fa-bell"></i> Notifications</a>
-
-</div>
-
-<div class="community">
-
-<div class="menuTitle">COMMUNITY</div>
-
-<div class="menu">
-
-<a href="https://t.me/CyberMitzii">
+<a href="https://t.me/CyberMitzii" target="_blank">
 <i class="fa-brands fa-telegram"></i>
 Telegram Contact
 </a>
 
-<a href="https://t.me/devmitziii">
+<a href="https://t.me/devmitziii" target="_blank">
 <i class="fa-brands fa-telegram"></i>
 Telegram Channel
 </a>
 
-<a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j" target="_blank">
 <i class="fa-brands fa-whatsapp"></i>
 WhatsApp Channel
 </a>
 
 </div>
 
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">Mitzii<span>.</span></div>
+
+<div class="nav-links">
+<a href="#vpn">VPN</a>
+<a href="#bots">BOTS</a>
+<a href="#panels">PANELS</a>
+<a href="#developer">DEVELOPER</a>
 </div>
 
-<div class="contactBox">
-
-<h3>Need Help?</h3>
-
-<p style="color:#aaa;margin:15px 0;">
-Contact support 24/7
-</p>
-
-<button>Contact Support</button>
-
+<div class="menu-btn" onclick="toggleMenu()">
+<i class="fa-solid fa-bars"></i>
 </div>
 
 </div>
-
-<!-- TOPBAR -->
-<div class="topbar">
-
-<nav>
-
-<a href="#">Dashboard</a>
-<a href="#">VPN</a>
-<a href="#">Bots</a>
-<a href="#">Panels</a>
-<a href="#">Developer</a>
-<a href="#">Contact</a>
-
-</nav>
-
-</div>
-
-<!-- CONTENT -->
-<div class="content">
 
 <!-- HERO -->
-<div class="hero">
 
-<h1>WELCOME TO MITZII STORE</h1>
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>Mitzii <span>Store.</span></h1>
 
 <p>
-
-𝗦𝗘𝗥𝗩𝗜𝗖𝗘𝗦 𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘<br><br>
-
-Customize Web Available<br>
-BUG Bot SC Available<br>
-High Secure Panel Available<br>
-VPS Account Available<br>
-MOBILE HACK Available<br><br>
-
-Fast Service<br>
-Secure System<br>
-Trusted Work
-
+Premium VPN, Automation Bots, and Infrastructure Panels.
 </p>
 
-</div>
+<div class="hero-buttons">
 
-<!-- SERVICES -->
-<div class="services">
-
-<h2>FULL MOBILE HACKING TOOL AVAILABLE</h2>
-
-<br>
-
-CAMARA HACK<br>
-WHARTSAPP HACK<br>
-FACEBOOK HACK<br>
-GALLERY HACK<br>
-FULL DEVICE LOOK<br>
-PHONE RESET<br>
-LOCATION TRACK<br><br>
-
-more best features have Buy Any one come inbox Mid range Price but Fully working This
-
-</div>
-
-<!-- PANELS -->
-<h1 class="sectionTitle">PTERODACTYL ADMIN PANEL</h1>
-
-<div class="grid">
-
-<div class="card">
-<h2>UNLIMITED PANEL</h2>
-<p>CPU : UNLIMITED<br>MEMORY : UNLIMITED</p>
-<div class="price">Rs. 500</div>
-
-<div class="btns">
-
-<a class="btn" href="https://t.me/CyberMitzii">
+<a href="https://t.me/CyberMitzii" class="btn telegram-btn" target="_blank">
 <i class="fa-brands fa-telegram"></i>
 Telegram
 </a>
 
-<a class="btn" href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<a href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j" class="btn whatsapp-btn" target="_blank">
 <i class="fa-brands fa-whatsapp"></i>
 WhatsApp
 </a>
@@ -586,182 +582,314 @@ WhatsApp
 
 </div>
 
-<div class="card">
-<h2>ADMIN PANEL</h2>
-<p>ANTI DDOS • FULL ACCESS</p>
-<div class="price">Rs. 1600</div>
-
-<div class="btns">
-
-<a class="btn" href="https://t.me/CyberMitzii">
-Telegram
-</a>
-
-<a class="btn" href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
-WhatsApp
-</a>
-
-</div>
-
-</div>
-
-<div class="card">
-<h2>OWNER PANEL</h2>
-<p>24 NODE SUPPORT</p>
-<div class="price">Rs. 3500</div>
-
-<div class="btns">
-
-<a class="btn" href="https://t.me/CyberMitzii">
-Telegram
-</a>
-
-<a class="btn" href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
-WhatsApp
-</a>
-
-</div>
-
-</div>
-
-</div>
+</section>
 
 <!-- VPN -->
-<h1 class="sectionTitle">PREMIUM VPN</h1>
 
-<div class="grid">
+<section class="section" id="vpn">
+
+<h2 class="section-title">Premium VPN Allocation</h2>
+
+<div class="cards">
 
 <div class="card">
-
-<h2>100GB VPN</h2>
-
-<p>High speed secure network.</p>
-
+<h3>100GB VPN Access</h3>
+<p>Secure routing networks private data bandwidth allocation.</p>
 <div class="price">Rs. 300</div>
 
-<div class="btns">
+<div class="order-buttons">
 
-<a class="btn" href="https://t.me/CyberMitzii">
+<a class="tg" target="_blank"
+href="https://t.me/CyberMitzii">
+<i class="fa-brands fa-telegram"></i>
 Telegram
 </a>
 
-<a class="btn" href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<a class="wa" target="_blank"
+href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<i class="fa-brands fa-whatsapp"></i>
 WhatsApp
 </a>
 
 </div>
-
 </div>
 
 <div class="card">
-
-<h2>500GB VPN</h2>
-
-<p>Ultra secure premium routing.</p>
-
+<h3>500GB VPN</h3>
+<p>High speed secure unlimited private routing.</p>
 <div class="price">Rs. 800</div>
 
-<div class="btns">
+<div class="order-buttons">
 
-<a class="btn" href="https://t.me/CyberMitzii">
+<a class="tg" target="_blank"
+href="https://t.me/CyberMitzii">
+<i class="fa-brands fa-telegram"></i>
 Telegram
 </a>
 
-<a class="btn" href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<a class="wa" target="_blank"
+href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<i class="fa-brands fa-whatsapp"></i>
 WhatsApp
 </a>
 
 </div>
-
 </div>
 
 <div class="card">
-
-<h2>Unlimited VPN</h2>
-
-<p>Unlimited premium secure speed.</p>
-
+<h3>Unlimited VPN</h3>
+<p>Maximum speed unthrottled global secure node.</p>
 <div class="price">Rs. 1150</div>
 
-<div class="btns">
+<div class="order-buttons">
 
-<a class="btn" href="https://t.me/CyberMitzii">
+<a class="tg" target="_blank"
+href="https://t.me/CyberMitzii">
+<i class="fa-brands fa-telegram"></i>
 Telegram
 </a>
 
-<a class="btn" href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<a class="wa" target="_blank"
+href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+<i class="fa-brands fa-whatsapp"></i>
 WhatsApp
 </a>
 
 </div>
-
 </div>
 
 </div>
+
+</section>
 
 <!-- BUG BOTS -->
-<h1 class="sectionTitle">BUG BOTS</h1>
 
-<div class="grid">
+<section class="section" id="bots">
+
+<h2 class="section-title">Bug Bots</h2>
+
+<div class="cards">
 
 <div class="card">
-<h2>Tredict</h2>
+<h3>Tredict</h3>
 <div class="price">Rs. 1500</div>
 <p>1 Month Access</p>
 </div>
 
 <div class="card">
-<h2>Lakiya Crasher</h2>
+<h3>Lakiya Crasher</h3>
 <div class="price">Rs. 1500</div>
 <p>1 Month Access</p>
 </div>
 
 <div class="card">
-<h2>Ovalinum</h2>
+<h3>Ovalinum</h3>
 <div class="price">Rs. 1500</div>
 <p>1 Month Access</p>
 </div>
 
 <div class="card">
-<h2>Deathline</h2>
+<h3>Deathline</h3>
 <div class="price">Rs. 1500</div>
 <p>1 Month Access</p>
 </div>
 
 <div class="card">
-<h2>Silent Killer</h2>
+<h3>Silent Killer</h3>
 <div class="price">Rs. 1500</div>
 <p>1 Month Access</p>
 </div>
 
-<div class="card">
-<h2>Resell 1 Month</h2>
-<div class="price">Rs. 2000</div>
-<p>Premium Reseller Access</p>
 </div>
+
+</section>
+
+<!-- PANELS -->
+
+<section class="section" id="panels">
+
+<h2 class="section-title">Pterodactyl Admin Panel</h2>
+
+<div class="cards">
 
 <div class="card">
-<h2>6 Month</h2>
-<div class="price">Rs. 5000</div>
-<p>Full Access Package</p>
+<h3>Unlimited Panel</h3>
+<div class="price">Rs. 500</div>
+
+<div class="order-buttons">
+
+<a class="tg" target="_blank"
+href="https://t.me/CyberMitzii">
+Telegram
+</a>
+
+<a class="wa" target="_blank"
+href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+WhatsApp
+</a>
+
 </div>
+</div>
+
+<div class="card">
+<h3>Admin Panel</h3>
+<div class="price">Rs. 1600</div>
+</div>
+
+<div class="card">
+<h3>PT Panel Resell</h3>
+<div class="price">Rs. 2600</div>
+</div>
+
+<div class="card">
+<h3>Owner Panel</h3>
+<div class="price">Rs. 3500</div>
+</div>
+
+<div class="card">
+<h3>Bug Bot Deploy</h3>
+<div class="price">Rs. 450</div>
+</div>
+
+<div class="card">
+<h3>MD Bot Deploy</h3>
+<div class="price">Rs. 400</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- DEVELOPER -->
+
+<section class="section" id="developer">
+
+<h2 class="section-title">Developer</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Cyber Mitzii</h3>
+
+<p>
+Customize Web Available<br>
+BUG Bot SC Available<br>
+High Secure Panel Available<br>
+VPS Account Available<br>
+MOBILE HACK Available
+</p>
+
+<div class="order-buttons">
+
+<a class="tg" target="_blank"
+href="https://t.me/CyberMitzii">
+
+<i class="fa-brands fa-telegram"></i>
+Telegram
+
+</a>
+
+<a class="wa" target="_blank"
+href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j">
+
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
+
+</a>
 
 </div>
 
 </div>
 
 </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<h2>MITZII STORE</h2>
+
+<p>Premium Digital Services</p>
+
+<div class="footer-links">
+
+<a class="telegram-btn"
+href="https://t.me/CyberMitzii"
+target="_blank">
+
+<i class="fa-brands fa-telegram"></i>
+Telegram
+
+</a>
+
+<a class="whatsapp-btn"
+href="https://whatsapp.com/channel/0029Vb7n81K5a249fI8Y4S2j"
+target="_blank">
+
+<i class="fa-brands fa-whatsapp"></i>
+WhatsApp
+
+</a>
+
+</div>
+
+</footer>
 
 <script>
 
-window.onload = () => {
+/* LOADING */
+
+window.addEventListener("load",()=>{
 
 setTimeout(()=>{
+document.getElementById("loading-screen").style.display="none";
+},5000);
 
-document.getElementById("loadingScreen").style.display="none";
-document.getElementById("mainSite").style.display="block";
+});
 
-},4500)
+/* MENU */
+
+function toggleMenu(){
+document.getElementById("sidebar").classList.toggle("active");
+}
+
+/* STARS */
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<180;i++){
+
+let star = document.createElement("div");
+star.classList.add("star");
+
+star.style.top = Math.random()*100+"%";
+star.style.left = Math.random()*100+"%";
+
+star.style.animationDuration =
+(Math.random()*4+2)+"s";
+
+stars.appendChild(star);
+
+}
+
+/* SHOOTING STARS */
+
+for(let i=0;i<12;i++){
+
+let shoot = document.createElement("div");
+shoot.classList.add("shooting-star");
+
+shoot.style.width = Math.random()*120+80+"px";
+
+shoot.style.top = Math.random()*100+"%";
+shoot.style.left = Math.random()*100+"%";
+
+shoot.style.animationDelay = Math.random()*8+"s";
+
+stars.appendChild(shoot);
 
 }
 
